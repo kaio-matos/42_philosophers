@@ -1,0 +1,9 @@
+philosophers
+philosophers_debug
+philosophers_bonus
+a.out
+*.o
+*.a
+infile
+outfile
+.vscode
