@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 00:47:54 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/03 21:03:53 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/03 21:20:46 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	ft_atoi(const char *nptr)
 		nptr++;
 	sign = check_signal(nptr, &i);
 	nptr += i;
-	while (*nptr >= '0' && *nptr <= '9')
+	while (ft_isdigit(*nptr))
 	{
 		res = res * 10 + charint(*nptr);
 		nptr++;
