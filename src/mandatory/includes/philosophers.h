@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 01:06:58 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/03 21:20:34 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/03 21:49:54 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,13 @@ typedef struct s_philosophers
 	t_arguments	args;
 }	t_philosophers;
 
+/**
+ * @param number_of_philosophers The number of philosophers and also the number of forks.
+ * @param time_to_die If a philosopher didn’t start eating time_to_die milliseconds since the beginning of their last meal or the beginning of the simulation, they die.
+ * @param time_to_eat The time it takes for a philosopher to eat. During that time, they will need to hold two forks.
+ * @param time_to_sleep The time a philosopher will spend sleeping.
+ * @param number_of_times_each_philosopher_must_eat (OPTIONAL) If all philosophers have eaten at least number_of_times_each_philosopher_must_eat times, the simulation stops. If not specified, the simulation stops when a philosopher dies.
+*/
 void		philosophers(
 					int number_of_philosophers,
 					int time_to_die,
