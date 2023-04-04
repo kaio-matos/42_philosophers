@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 01:06:58 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/03 21:49:54 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:02:39 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PHILOSOPHERS_H
 
 # include <stdio.h>
+# include <stdlib.h>
 
 /**
  * Arguments
@@ -55,6 +56,18 @@ typedef struct s_arguments
 	int	time_to_sleep;
 	int	number_of_times_each_philosopher_must_eat;
 }	t_arguments;
+
+typedef struct s_forks
+{
+	int	left;
+	int	right;
+}	t_forks;
+
+typedef struct s_philosopher
+{
+	int		id;
+	t_forks	forks;
+}	t_philosopher;
 
 typedef struct s_philosophers
 {

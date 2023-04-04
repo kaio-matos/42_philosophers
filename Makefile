@@ -1,6 +1,5 @@
 OBJS_DIR			= objects
-SRC_DIR				= src
-MANDATORY_DIR		= mandatory
+SRC_DIR				= philo
 BONUS_DIR			= bonus
 
 CC					= cc
@@ -18,15 +17,15 @@ endif
 ################################################################################
 
 NAME				= philosophers
-CCF_INCL_MANDATORY	= -I ./$(SRC_DIR)/$(MANDATORY_DIR)/includes
+CCF_INCL_MANDATORY	= -I ./$(SRC_DIR)/includes
 
 C_UTILS_FILES		= $(addprefix utils/, ft_atoi.c ft_isdigit.c ft_isstrdigit.c)
 C_PARSER_FILES		= $(addprefix parser/, p__arguments.c)
 C_VALIDATION_FILES	= $(addprefix validation/, v__arguments.c)
 
 C_FILES_MANDATORY	= main.c philosophers.c $(C_VALIDATION_FILES) $(C_PARSER_FILES) $(C_UTILS_FILES)
-FILES_MANDATORY		= $(addprefix $(MANDATORY_DIR)/,$(C_FILES_MANDATORY))
-SRCS_MANDATORY		= $(addprefix src/,$(FILES_MANDATORY))
+FILES_MANDATORY		= $(C_FILES_MANDATORY)
+SRCS_MANDATORY		= $(addprefix $(SRC_DIR)/,$(FILES_MANDATORY))
 OBJS_MANDATORY		= $(addprefix $(OBJS_DIR)/,$(FILES_MANDATORY:.c=.o))
 
 all: $(NAME)
@@ -34,7 +33,7 @@ all: $(NAME)
 $(NAME): $(OBJS_MANDATORY)
 	$(CC) $(OBJS_MANDATORY) $(LIBS) -o $(NAME)
 
-$(OBJS_DIR)/$(MANDATORY_DIR)/%.o: $(SRC_DIR)/$(MANDATORY_DIR)/%.c
+$(OBJS_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CCF_STRICT) $(CCF_INCL_MANDATORY) -c $< -o $@
 
