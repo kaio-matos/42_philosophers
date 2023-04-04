@@ -20,7 +20,11 @@ endif
 NAME				= philosophers
 CCF_INCL_MANDATORY	= -I ./$(SRC_DIR)/$(MANDATORY_DIR)/includes
 
-C_FILES_MANDATORY	= main.c
+C_UTILS_FILES		= $(addprefix utils/, ft_atoi.c)
+C_PARSER_FILES		= $(addprefix parser/, p__arguments.c)
+C_VALIDATION_FILES	= $(addprefix validation/, v__arguments.c)
+
+C_FILES_MANDATORY	= main.c philosophers.c $(C_VALIDATION_FILES) $(C_PARSER_FILES) $(C_UTILS_FILES)
 FILES_MANDATORY		= $(addprefix $(MANDATORY_DIR)/,$(C_FILES_MANDATORY))
 SRCS_MANDATORY		= $(addprefix src/,$(FILES_MANDATORY))
 OBJS_MANDATORY		= $(addprefix $(OBJS_DIR)/,$(FILES_MANDATORY:.c=.o))

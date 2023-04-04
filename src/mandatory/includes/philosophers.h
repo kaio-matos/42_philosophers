@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 01:06:58 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/03 20:25:42 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/03 21:15:37 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,23 @@
 /**
  * Arguments
  * number_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]
+ *
+ * ◦ number_of_philosophers:
+ * 		The number of philosophers and also the number of forks.
+ *
+ * ◦ time_to_die (in milliseconds):
+ * 		If a philosopher didn’t start eating time_to_die milliseconds since
+ * 		the beginning of their last meal or the beginning of the simulation, they die.
+ *
+ * ◦ time_to_eat (in milliseconds):
+ * 		The time it takes for a philosopher to eat.
+ * 		During that time, they will need to hold two forks.
+ *
+ * ◦ time_to_sleep (in milliseconds): The time a philosopher will spend sleeping.
+ *
+ * ◦ number_of_times_each_philosopher_must_eat (optional argument):
+ * 		If all philosophers have eaten at least number_of_times_each_philosopher_must_eat times,
+ * 		the simulation stops. If not specified, the simulation stops when a philosopher dies.
 */
 
 /**
@@ -29,5 +46,47 @@
  * pthread_mutex_destroy, pthread_mutex_lock,
  * pthread_mutex_unlock
 */
+
+typedef struct s_arguments
+{
+	int	number_of_philosophers;
+	int	time_to_die;
+	int	time_to_eat;
+	int	time_to_sleep;
+	int	number_of_times_each_philosopher_must_eat;
+}	t_arguments;
+
+typedef struct s_philosophers
+{
+	t_arguments	args;
+}	t_philosophers;
+
+void		philosophers(
+					int number_of_philosophers,
+					int time_to_die,
+					int time_to_eat,
+					int time_to_sleep,
+					int number_of_times_each_philosopher_must_eat
+				);
+
+/******************************************************************************\
+* VALIDATION																   *
+\******************************************************************************/
+
+int			v__arguments(int argc, char **argv);
+
+
+/******************************************************************************\
+* PARSER																	   *
+\******************************************************************************/
+
+t_arguments	p__arguments(int argc, char **argv);
+
+
+/******************************************************************************\
+* UTILS																		   *
+\******************************************************************************/
+
+int			ft_atoi(const char *nptr);
 
 #endif
