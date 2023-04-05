@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 01:06:58 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/04 21:37:03 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/04 21:37:14 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,9 @@ typedef struct s_forks
 
 typedef struct s_philosopher
 {
-	int		id;
-	t_forks	forks;
+	int			id;
+	t_forks		forks;
+	pthread_t	thread;
 }	t_philosopher;
 
 typedef struct s_philosophers
@@ -107,9 +108,10 @@ t_arguments	p__arguments(int argc, char **argv);
 * UTILS																		   *
 \******************************************************************************/
 
-int			ft_atoi(const char *nptr);
-int			ft_isdigit(int c);
-int			ft_isstrdigit(char *s);
-void		*ft_salloc(size_t size);
+int				ft_atoi(const char *nptr);
+int				ft_isdigit(int c);
+int				ft_isstrdigit(char *s);
+void			*ft_salloc(size_t size);
+t_philosopher	*get_philosopher(t_list *node);
 
 #endif

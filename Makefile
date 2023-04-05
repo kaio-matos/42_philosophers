@@ -3,7 +3,7 @@ SRC_DIR				= philo
 BONUS_DIR			= bonus
 
 CC					= cc
-CCF_STRICT			= -Wall -Wextra -Werror
+CCF_STRICT			= -Wall -Wextra -Werror -pthread
 CCF_DEBUG			= -g3 -D VERBOSE=1
 
 RM					= rm -rf
@@ -19,7 +19,7 @@ endif
 NAME				= philosophers
 CCF_INCL_MANDATORY	= -I ./$(SRC_DIR)/includes
 
-C_UTILS_FILES		= $(addprefix utils/, ft_atoi.c ft_isdigit.c ft_isstrdigit.c ft_salloc.c)
+C_UTILS_FILES		= $(addprefix utils/, ft_atoi.c ft_isdigit.c ft_isstrdigit.c ft_salloc.c get_philosopher.c)
 C_PARSER_FILES		= $(addprefix parser/, p__arguments.c)
 C_VALIDATION_FILES	= $(addprefix validation/, v__arguments.c)
 C_LINKED_LISTS		= $(addprefix linked_list/, ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c)
