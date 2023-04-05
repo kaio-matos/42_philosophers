@@ -6,15 +6,15 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 01:06:58 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/04 20:02:39 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/04 21:37:03 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
-# include <stdio.h>
-# include <stdlib.h>
+# include <headers.h>
+# include <linked_list.h>
 
 /**
  * Arguments
@@ -110,5 +110,6 @@ t_arguments	p__arguments(int argc, char **argv);
 int			ft_atoi(const char *nptr);
 int			ft_isdigit(int c);
 int			ft_isstrdigit(char *s);
+void		*ft_salloc(size_t size);
 
 #endif
