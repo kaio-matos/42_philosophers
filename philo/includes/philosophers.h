@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 01:06:58 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/05 20:33:10 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/05 21:42:32 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,34 @@ int				ft_atoi(const char *nptr);
 int				ft_isdigit(int c);
 int				ft_isstrdigit(char *s);
 void			*ft_salloc(size_t size);
+
+/******************************************************************************\
+* ENTITIES																	   *
+\******************************************************************************/
+
+/**
+ * PHILOSOPHER
+*/
+t_philosopher	*create_philosopher(
+					int id,
+					t_forks forks,
+					void *(*philosopher_routine)(void *)
+				);
 t_philosopher	*get_philosopher(t_list *node);
+t_list			*create_philosophers(
+					int amount,
+					void *(*routine)(void *)
+				);
+void			free_philosophers(t_list **philosophers);
+void			wait_philosophers(t_list *philosophers);
+
+/**
+ * FORK
+*/
+t_fork			*create_fork(int id, int philosopher_id);
+t_fork			*get_fork(t_list *node);
+t_list			*create_forks(int number_of_forks);
+void			free_forks(t_list **forks);
+void			print_forks(t_list *forks);
 
 #endif
