@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 01:06:58 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/04 21:37:14 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/05 20:33:10 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,12 @@ typedef struct s_forks
 	int	left;
 	int	right;
 }	t_forks;
+
+typedef struct s_fork
+{
+	int	id;
+	int	philosopher_id;
+}	t_fork;
 
 typedef struct s_philosopher
 {
