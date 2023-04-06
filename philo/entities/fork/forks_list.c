@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:20:41 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/05 21:39:39 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/06 20:36:57 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_list	*create_forks(int number_of_forks)
 	forks = NULL;
 	while (i < number_of_forks)
 	{
-		ft_lstadd_back(&forks, ft_lstnew(create_fork(i, -1)));
+		ft_lstadd_back(&forks, ft_lstnew(create_fork(i + 1, -1)));
 		i++;
 	}
 	return (forks);

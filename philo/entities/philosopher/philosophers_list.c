@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:32:36 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/05 21:41:39 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/06 20:08:49 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_list	*create_philosophers(
 	{
 		forks.left = 0;
 		forks.right = 1;
-		ft_lstadd_back(&philosophers, ft_lstnew(create_philosopher(i, forks, routine)));
+		ft_lstadd_back(&philosophers, ft_lstnew(create_philosopher(i + 1, forks, routine)));
 		i++;
 	}
 	return (philosophers);
