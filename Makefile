@@ -19,13 +19,15 @@ endif
 NAME				= philosophers
 CCF_INCL_MANDATORY	= -I ./$(SRC_DIR)/includes
 
+C_TIME_FILES		= $(addprefix time/, time.c)
+C_LOG_FILES			= $(addprefix log/, log.c)
 C_ENTITIES_FILES	= $(addprefix entities/, fork/fork.c fork/forks_list.c philosopher/philosopher.c philosopher/philosophers_list.c)
 C_UTILS_FILES		= $(addprefix utils/, ft_atoi.c ft_isdigit.c ft_isstrdigit.c ft_salloc.c)
 C_PARSER_FILES		= $(addprefix parser/, p__arguments.c)
 C_VALIDATION_FILES	= $(addprefix validation/, v__arguments.c)
 C_LINKED_LISTS		= $(addprefix linked_list/, ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c)
 
-C_FILES_MANDATORY	= main.c philosophers.c $(C_VALIDATION_FILES) $(C_PARSER_FILES) $(C_UTILS_FILES) $(C_LINKED_LISTS) $(C_ENTITIES_FILES)
+C_FILES_MANDATORY	= main.c philosophers.c $(C_VALIDATION_FILES) $(C_PARSER_FILES) $(C_UTILS_FILES) $(C_LINKED_LISTS) $(C_ENTITIES_FILES) $(C_LOG_FILES) $(C_TIME_FILES)
 FILES_MANDATORY		= $(C_FILES_MANDATORY)
 SRCS_MANDATORY		= $(addprefix $(SRC_DIR)/,$(FILES_MANDATORY))
 OBJS_MANDATORY		= $(addprefix $(OBJS_DIR)/,$(FILES_MANDATORY:.c=.o))

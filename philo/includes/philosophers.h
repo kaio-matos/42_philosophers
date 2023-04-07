@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 01:06:58 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/05 21:42:32 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/06 21:10:04 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include <headers.h>
 # include <linked_list.h>
+
+# define MICROSECOND 1
+# define MILISECOND 1000 * MICROSECOND
 
 /**
  * Arguments
@@ -67,6 +70,7 @@ typedef struct s_fork
 {
 	int	id;
 	int	philosopher_id;
+	int	is_on_table;
 }	t_fork;
 
 typedef struct s_philosopher
@@ -147,5 +151,20 @@ t_fork			*get_fork(t_list *node);
 t_list			*create_forks(int number_of_forks);
 void			free_forks(t_list **forks);
 void			print_forks(t_list *forks);
+
+/******************************************************************************\
+* TIME																		   *
+\******************************************************************************/
+
+long int		get_program_time(void);
+
+/******************************************************************************\
+* LOG																		   *
+\******************************************************************************/
+
+void			log_taken_fork(t_philosopher *philosopher);
+void			log_eating(t_philosopher *philosopher);
+void			log_sleeping(t_philosopher *philosopher);
+void			log_thinking(t_philosopher *philosopher);
 
 #endif

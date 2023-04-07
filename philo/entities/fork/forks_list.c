@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:20:41 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/06 20:36:57 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/06 20:37:03 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	print_forks(t_list *forks)
 		printf("\nfork {\n");
 		printf("   id			%i\n", get_fork(forks)->id);
 		printf("   philsopher_id	%i\n", get_fork(forks)->philosopher_id);
+		printf("   is_on_table	%i\n", get_fork(forks)->is_on_table);
 		printf("}\n\n");
 		forks = forks->next;
 	}
