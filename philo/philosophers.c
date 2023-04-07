@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 20:38:23 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/06 21:36:40 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/06 21:45:21 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	*routine(void	*philosopher_void)
 	philosopher = philosopher_void;
 	while (i < 25)
 	{
+		a__take_fork(philosopher);
 		a__eat(philosopher);
 		a__sleep(philosopher);
 		a__think(philosopher);

@@ -19,7 +19,7 @@ endif
 NAME				= philosophers
 CCF_INCL_MANDATORY	= -I ./$(SRC_DIR)/includes
 
-C_ACTIONS_FILES		= $(addprefix actions/, a__eat.c a__sleep.c a__think.c)
+C_ACTIONS_FILES		= $(addprefix actions/, a__eat.c a__sleep.c a__take_fork.c a__think.c)
 C_TIME_FILES		= $(addprefix time/, time.c)
 C_LOG_FILES			= $(addprefix log/, log.c)
 C_ENTITIES_FILES	= $(addprefix entities/, fork/fork.c fork/forks_list.c philosopher/philosopher.c philosopher/philosophers_list.c)

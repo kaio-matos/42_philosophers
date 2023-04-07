@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 01:06:58 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/06 21:10:04 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/06 21:45:05 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,5 +166,14 @@ void			log_taken_fork(t_philosopher *philosopher);
 void			log_eating(t_philosopher *philosopher);
 void			log_sleeping(t_philosopher *philosopher);
 void			log_thinking(t_philosopher *philosopher);
+
+/******************************************************************************\
+* ACTIONS																		   *
+\******************************************************************************/
+
+void	a__eat(t_philosopher *philosopher);
+void	a__sleep(t_philosopher *philosopher);
+void	a__take_fork(t_philosopher *philosopher);
+void	a__think(t_philosopher *philosopher);
 
 #endif
