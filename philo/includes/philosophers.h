@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 01:06:58 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/06 21:45:05 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/06 21:59:43 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,12 @@ typedef struct s_philosopher
 	pthread_t	thread;
 }	t_philosopher;
 
+typedef struct s_philosopher_routine
+{
+	t_philosopher	*philosopher;
+	t_list			*forks;
+}	t_philosopher_routine;
+
 typedef struct s_philosophers
 {
 	t_arguments	args;
@@ -130,16 +136,9 @@ void			*ft_salloc(size_t size);
 /**
  * PHILOSOPHER
 */
-t_philosopher	*create_philosopher(
-					int id,
-					t_forks forks,
-					void *(*philosopher_routine)(void *)
-				);
+t_philosopher	*create_philosopher(int id, t_forks forks);
 t_philosopher	*get_philosopher(t_list *node);
-t_list			*create_philosophers(
-					int amount,
-					void *(*routine)(void *)
-				);
+t_list			*create_philosophers(int amount);
 void			free_philosophers(t_list **philosophers);
 void			wait_philosophers(t_list *philosophers);
 
@@ -151,6 +150,10 @@ t_fork			*get_fork(t_list *node);
 t_list			*create_forks(int number_of_forks);
 void			free_forks(t_list **forks);
 void			print_forks(t_list *forks);
+
+/**
+ * THREAD
+*/
 
 /******************************************************************************\
 * TIME																		   *

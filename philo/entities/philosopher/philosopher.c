@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:18:08 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/05 21:40:48 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/06 22:04:32 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 t_philosopher	*create_philosopher(
 	int id,
-	t_forks forks,
-	void *(*philosopher_routine)(void *)
+	t_forks forks
 )
 {
 	t_philosopher	*philosopher;
@@ -23,9 +22,6 @@ t_philosopher	*create_philosopher(
 	philosopher = ft_salloc(sizeof(t_philosopher));
 	philosopher->id = id;
 	philosopher->forks = forks;
-	if (pthread_create(&philosopher->thread, NULL, philosopher_routine, philosopher)) {
-		printf("Error creating thread\n"); // TODO
-	}
 	return (philosopher);
 }
 
