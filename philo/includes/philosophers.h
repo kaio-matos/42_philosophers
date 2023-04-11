@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 01:06:58 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/11 20:00:42 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:31:19 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ t_fork			*get_fork(t_list *node);
 t_list			*create_forks(int number_of_forks);
 void			free_forks(t_list **forks);
 void			print_forks(t_list *forks);
+void			print_fork(t_fork *fork);
 t_list			*find_fork_node_by_philosopher_id(
 					t_list *forks,
 					int philosopher_id
