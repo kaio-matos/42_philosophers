@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 20:38:23 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/06 22:04:24 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:12:18 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,20 @@ void	*routine(void	*args_void)
 	int						i;
 
 	args = args_void;
-	while (i < 25)
+	debug("%sCurrent Philosopher: %i %s\n", SHELL_P, args->philosopher->id, SHELL_RC);
+	i = args->philosopher->times_to_eat;
+	while (i || args->philosopher->times_to_eat == -1)
 	{
-		a__take_fork(args->philosopher);
+		pthread_mutex_lock(args->mutex);
+		a__take_fork(args->philosopher, args->forks);
 		a__eat(args->philosopher);
+		a__put_forks_on_table(args->philosopher, args->forks);
+		pthread_mutex_unlock(args->mutex);
 		a__sleep(args->philosopher);
 		a__think(args->philosopher);
-		i++;
+		i--;
 	}
+	free(args);
 }
 
 void	attach_forks_to_philosophers(t_list	*forks, t_list *philosophers)
@@ -43,25 +49,30 @@ void	attach_forks_to_philosophers(t_list	*forks, t_list *philosophers)
 	}
 }
 
-t_philosopher_routine	*create_philosophers_threads(
+pthread_mutex_t	*create_philosophers_threads(
 	t_list *philosophers,
 	t_list *forks,
 	void *(*philosopher_routine)(void *)
 )
 {
 	t_philosopher_routine	*philosopher_routine_args;
+	pthread_mutex_t			*mutex;
 
-	philosopher_routine_args = ft_salloc(sizeof(t_philosopher_routine));
+	mutex = ft_salloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(mutex, NULL);
 	while (philosophers)
 	{
+		philosopher_routine_args = ft_salloc(sizeof(t_philosopher_routine));
+		philosopher_routine_args->mutex = mutex;
 		philosopher_routine_args->philosopher = get_philosopher(philosophers);
 		philosopher_routine_args->forks = forks;
+		debug("%sCreating thread for Philosopher: %i %s\n", SHELL_GB, philosopher_routine_args->philosopher->id, SHELL_RC);
 		if (pthread_create(&get_philosopher(philosophers)->thread, NULL, philosopher_routine, philosopher_routine_args)) {
 			printf("Error creating thread\n"); // TODO
 		}
 		philosophers = philosophers->next;
 	}
-	return (philosopher_routine_args);
+	return (mutex);
 }
 
 void	philosophers(
@@ -72,17 +83,30 @@ void	philosophers(
 	int number_of_times_each_philosopher_must_eat
 )
 {
-	t_list	*philosophers;
-	t_list	*forks;
-	void	*trash;
+	t_list			*philosophers;
+	t_list			*forks;
+	pthread_mutex_t	*mutex;
 
-	philosophers = create_philosophers(number_of_philosophers);
+	philosophers = create_philosophers(
+		number_of_philosophers,
+		time_to_die,
+		time_to_eat,
+		time_to_sleep,
+		number_of_times_each_philosopher_must_eat
+	);
 	forks = create_forks(number_of_philosophers);
 	attach_forks_to_philosophers(forks, philosophers);
 
-	trash = create_philosophers_threads(philosophers, forks, &routine);
+	printf("\ntime_to_die\t\t\t\t\t%i\n", time_to_die);
+	printf("time_to_eat\t\t\t\t\t%i\n", time_to_eat);
+	printf("time_to_sleep\t\t\t\t\t%i\n", time_to_sleep);
+	printf("number_of_times_each_philosopher_must_eat\t%i\n\n", number_of_times_each_philosopher_must_eat);
+
+	printf("%sTIME\t ID ACTION%s\n", SHELL_CB, SHELL_RC);
+	mutex = create_philosophers_threads(philosophers, forks, &routine);
 	wait_philosophers(philosophers);
-	free(trash);
 	free_forks(&forks);
 	free_philosophers(&philosophers);
+	pthread_mutex_destroy(mutex);
+	free(mutex);
 }

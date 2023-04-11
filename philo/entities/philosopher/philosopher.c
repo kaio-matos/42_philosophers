@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:18:08 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/06 22:04:32 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:00:00 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,20 @@
 
 t_philosopher	*create_philosopher(
 	int id,
-	t_forks forks
+	int time_to_die,
+	int time_to_eat,
+	int time_to_sleep,
+	int times_to_eat
 )
 {
 	t_philosopher	*philosopher;
 
 	philosopher = ft_salloc(sizeof(t_philosopher));
 	philosopher->id = id;
-	philosopher->forks = forks;
+	philosopher->time_to_die = time_to_die;
+	philosopher->time_to_eat = time_to_eat;
+	philosopher->time_to_sleep = time_to_sleep;
+	philosopher->times_to_eat = times_to_eat;
 	return (philosopher);
 }
 

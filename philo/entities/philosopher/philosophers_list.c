@@ -6,25 +6,34 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:32:36 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/06 21:49:13 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:00:09 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philosophers.h>
 
-t_list	*create_philosophers(int amount)
+t_list	*create_philosophers(
+	int number_of_philosophers,
+	int time_to_die,
+	int time_to_eat,
+	int time_to_sleep,
+	int times_to_eat
+)
 {
 	int		i;
 	t_list	*philosophers;
-	t_forks	forks;
 
 	i = 0;
 	philosophers = NULL;
-	while (i < amount)
+	while (i < number_of_philosophers)
 	{
-		forks.left = -1;
-		forks.right = -1;
-		ft_lstadd_back(&philosophers, ft_lstnew(create_philosopher(i + 1, forks)));
+		ft_lstadd_back(&philosophers, ft_lstnew(create_philosopher(
+			i + 1,
+			time_to_die,
+			time_to_eat,
+			time_to_sleep,
+			times_to_eat
+		)));
 		i++;
 	}
 	return (philosophers);

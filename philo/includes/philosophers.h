@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 01:06:58 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/06 21:59:43 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:00:42 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 
 # define MICROSECOND 1
 # define MILISECOND 1000 * MICROSECOND
+# define TRUE 1
+# define FALSE 0
 
 /**
  * Arguments
@@ -76,14 +78,19 @@ typedef struct s_fork
 typedef struct s_philosopher
 {
 	int			id;
-	t_forks		forks;
+	// t_forks		forks;
 	pthread_t	thread;
+	int			time_to_die;
+	int			time_to_eat;
+	int			time_to_sleep;
+	int			times_to_eat;
 }	t_philosopher;
 
 typedef struct s_philosopher_routine
 {
 	t_philosopher	*philosopher;
 	t_list			*forks;
+	pthread_mutex_t *mutex;
 }	t_philosopher_routine;
 
 typedef struct s_philosophers
@@ -136,9 +143,21 @@ void			*ft_salloc(size_t size);
 /**
  * PHILOSOPHER
 */
-t_philosopher	*create_philosopher(int id, t_forks forks);
+t_philosopher	*create_philosopher(
+	int id,
+	int time_to_die,
+	int time_to_eat,
+	int time_to_sleep,
+	int times_to_eat
+);
 t_philosopher	*get_philosopher(t_list *node);
-t_list			*create_philosophers(int amount);
+t_list			*create_philosophers(
+	int number_of_philosophers,
+	int time_to_die,
+	int time_to_eat,
+	int time_to_sleep,
+	int times_to_eat
+);
 void			free_philosophers(t_list **philosophers);
 void			wait_philosophers(t_list *philosophers);
 
@@ -150,6 +169,10 @@ t_fork			*get_fork(t_list *node);
 t_list			*create_forks(int number_of_forks);
 void			free_forks(t_list **forks);
 void			print_forks(t_list *forks);
+t_list			*find_fork_node_by_philosopher_id(
+					t_list *forks,
+					int philosopher_id
+					);
 
 /**
  * THREAD
@@ -171,12 +194,21 @@ void			log_sleeping(t_philosopher *philosopher);
 void			log_thinking(t_philosopher *philosopher);
 
 /******************************************************************************\
-* ACTIONS																		   *
+* ACTIONS																	   *
 \******************************************************************************/
 
 void	a__eat(t_philosopher *philosopher);
 void	a__sleep(t_philosopher *philosopher);
-void	a__take_fork(t_philosopher *philosopher);
+void	a__take_fork(t_philosopher *philosopher, t_list *forks);
+void	a__put_forks_on_table(t_philosopher *philosopher, t_list *forks);
 void	a__think(t_philosopher *philosopher);
+
+/******************************************************************************\
+* REMOVE LATER																   *
+* TODO																		   *
+* WARNING																	   *
+\******************************************************************************/
+
+int	debug(const char *str, ...);
 
 #endif

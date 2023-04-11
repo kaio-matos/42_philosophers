@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   a__sleep.c                                         :+:      :+:    :+:   */
+/*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/06 21:35:51 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/11 20:01:41 by kmatos-s         ###   ########.fr       */
+/*   Created: 2023/04/10 20:19:41 by kmatos-s          #+#    #+#             */
+/*   Updated: 2023/04/10 20:20:57 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philosophers.h>
 
-void	a__sleep(t_philosopher *philosopher)
+int	debug(const char *str, ...)
 {
-	log_sleeping(philosopher);
-	usleep(MILISECOND * philosopher->time_to_sleep);
+	int		printed;
+	va_list	args;
+
+	if (!VERBOSE)
+		return (0);
+	va_start(args, str);
+	printed = vprintf(str, args);
+	va_end(args);
+	return (printed);
 }
