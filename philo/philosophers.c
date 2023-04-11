@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 20:38:23 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/11 20:12:18 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:44:08 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	*routine(void	*args_void)
 	free(args);
 }
 
-void	attach_forks_to_philosophers(t_list	*forks, t_list *philosophers)
+void	attach_forks_to_philosophers(t_dlist	*forks, t_list *philosophers)
 {
 	while (philosophers)
 	{
@@ -51,7 +51,7 @@ void	attach_forks_to_philosophers(t_list	*forks, t_list *philosophers)
 
 pthread_mutex_t	*create_philosophers_threads(
 	t_list *philosophers,
-	t_list *forks,
+	t_dlist *forks,
 	void *(*philosopher_routine)(void *)
 )
 {
@@ -84,7 +84,7 @@ void	philosophers(
 )
 {
 	t_list			*philosophers;
-	t_list			*forks;
+	t_dlist			*forks;
 	pthread_mutex_t	*mutex;
 
 	philosophers = create_philosophers(

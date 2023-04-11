@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fork.c                                             :+:      :+:    :+:   */
+/*   ft_dlstnew.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/05 21:20:41 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/11 20:41:54 by kmatos-s         ###   ########.fr       */
+/*   Created: 2023/01/10 20:08:05 by kmatos-s          #+#    #+#             */
+/*   Updated: 2023/04/11 20:39:41 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philosophers.h>
 
-t_fork	*create_fork(int id, int philosopher_id)
+t_dlist	*ft_dlstnew(void *content)
 {
-	t_fork	*fork;
+	t_dlist	*list;
 
-	fork = ft_salloc(sizeof(t_fork));
-	fork->id = id;
-	fork->philosopher_id = philosopher_id;
-	fork->is_on_table = TRUE;
-	return (fork);
-}
-
-t_fork	*get_fork(t_dlist *node)
-{
-	return ((t_fork *)node->content);
+	list = ft_salloc(sizeof(t_dlist));
+	list->content = content;
+	list->next = NULL;
+	list->prev = NULL;
+	return (list);
 }

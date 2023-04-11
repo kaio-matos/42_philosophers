@@ -27,7 +27,7 @@ C_ENTITIES_FILES	= $(addprefix entities/, fork/fork.c fork/forks_list.c philosop
 C_UTILS_FILES		= $(addprefix utils/, ft_atoi.c ft_isdigit.c ft_isstrdigit.c ft_salloc.c)
 C_PARSER_FILES		= $(addprefix parser/, p__arguments.c)
 C_VALIDATION_FILES	= $(addprefix validation/, v__arguments.c)
-C_LINKED_LISTS		= $(addprefix linked_list/, ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c)
+C_LINKED_LISTS		= $(addprefix linked_list/, $(addprefix singly/, ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c) $(addprefix doubly/, ft_dlstnew.c ft_dlstadd_front.c ft_dlstadd_begin.c ft_dlstfirst.c ft_dlstlast.c ft_dlstadd_back.c ft_dlstsize.c ft_dlstdelone.c ft_dlstclear.c ft_dlstmap.c ft_dlstiter.c))
 
 C_FILES_MANDATORY	= main.c philosophers.c $(C_VALIDATION_FILES) $(C_PARSER_FILES) $(C_UTILS_FILES) $(C_LINKED_LISTS) $(C_ENTITIES_FILES) $(C_LOG_FILES) $(C_TIME_FILES) $(C_ACTIONS_FILES) $(C_REMOVE_LATER)
 FILES_MANDATORY		= $(C_FILES_MANDATORY)

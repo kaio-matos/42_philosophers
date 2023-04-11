@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 01:06:58 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/04 21:38:48 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:40:14 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,28 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
  * @return The new list. NULL if the allocation fails.
  */
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+/******************************************************************************\
+* DOUBLY LINKED LIST														   *
+\******************************************************************************/
+
+typedef struct s_dlist
+{
+	void			*content;
+	struct s_dlist	*next;
+	struct s_dlist	*prev;
+}	t_dlist;
+
+t_dlist	*ft_dlstnew(void *content);
+void	ft_dlstadd_front(t_dlist **lst, t_dlist *new);
+void	ft_dlstadd_begin(t_dlist **lst, t_dlist *new);
+void	ft_dlstadd_back(t_dlist **lst, t_dlist *new);
+t_dlist	*ft_dlstlast(t_dlist *lst);
+t_dlist	*ft_dlstfirst(t_dlist *lst);
+int		ft_dlstsize(t_dlist *lst);
+void	ft_dlstdelone(t_dlist *lst, void (*del)(void *));
+void	ft_dlstclear(t_dlist **lst, void (*del)(void *));
+void	ft_dlstiter(t_dlist *lst, void (*f)(void *));
+t_dlist	*ft_dlstmap(t_dlist *lst, void *(*f)(void *), void (*del)(void *));
 
 #endif

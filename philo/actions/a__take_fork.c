@@ -6,16 +6,16 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 21:43:03 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/11 20:32:49 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:44:21 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philosophers.h>
 
-void	a__take_fork(t_philosopher *philosopher, t_list *forks)
+void	a__take_fork(t_philosopher *philosopher, t_dlist *forks)
 {
-	t_list	*fork_node;
-	t_list	*fork_next_node;
+	t_dlist	*fork_node;
+	t_dlist	*fork_next_node;
 
 	fork_node = find_fork_node_by_philosopher_id(forks, philosopher->id);
 	if (!fork_node)									// TODO: handle this error (it is needed?)
@@ -41,10 +41,10 @@ void	a__take_fork(t_philosopher *philosopher, t_list *forks)
 	log_taken_fork(philosopher);
 }
 
-void	a__put_forks_on_table(t_philosopher *philosopher, t_list *forks)
+void	a__put_forks_on_table(t_philosopher *philosopher, t_dlist *forks)
 {
-	t_list	*fork_node;
-	t_list	*fork_next_node;
+	t_dlist	*fork_node;
+	t_dlist	*fork_next_node;
 
 	fork_node = find_fork_node_by_philosopher_id(forks, philosopher->id);
 	if (!fork_node)									// TODO: handle this error (it is needed?)
