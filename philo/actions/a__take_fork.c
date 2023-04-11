@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 21:43:03 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/11 20:08:33 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:32:49 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,16 @@ void	a__take_fork(t_philosopher *philosopher, t_list *forks)
 	if (fork_node->next)							// TODO: handle cases that we don't find the next one (probably we will need to change our linked list to a circular linked list)
 		fork_next_node = fork_node->next;
 	else
+	{
+		debug("im falling here 1...\n\n");
 		fork_next_node = forks;						// TEMP: Until we have circular linked lists
+	}
+	print_fork(get_fork(fork_node));
+	print_fork(get_fork(fork_next_node));
 	if (!get_fork(fork_next_node)->is_on_table)
 	{
-		debug("%sa__take_fork: The fork is not on the table, the order is wrong!%s\n", SHELL_R, SHELL_RC);
+		debug("%sa__take_fork: The philosopher %i tried to take a fork!%s\n", SHELL_R, philosopher->id, SHELL_RC);
+		debug("%sa__take_fork: But the fork wasn't on the table, something has gone wrong!%s\n", SHELL_R, SHELL_RC);
 		return ;
 	}
 	get_fork(fork_node)->is_on_table = FALSE;
@@ -46,10 +52,16 @@ void	a__put_forks_on_table(t_philosopher *philosopher, t_list *forks)
 	if (fork_node->next)							// TODO: handle cases that we don't find the next one (probably we will need to change our linked list to a circular linked list)
 		fork_next_node = fork_node->next;
 	else
+	{
+		debug("im falling here 2...\n\n");
 		fork_next_node = forks;						// TEMP: Until we have circular linked lists
+	}
+	print_fork(get_fork(fork_node));
+	print_fork(get_fork(fork_next_node));
 	if (get_fork(fork_next_node)->is_on_table)
 	{
-		debug("%sa__put_forks_on_table: The fork is on the table, the order is wrong!%s\n", SHELL_R, SHELL_RC);
+		debug("%sa__put_forks_on_table: The philosopher %i tried to return the fork to the table!%s\n", SHELL_R, philosopher->id, SHELL_RC);
+		debug("%sa__put_forks_on_table: But the fork was already on the table, something has gone wrong!%s\n", SHELL_R, SHELL_RC);
 		return ;
 	}
 	get_fork(fork_node)->is_on_table = TRUE;
