@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:42:25 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/03 21:06:06 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/11 22:18:55 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@ int	main(int argc, char **argv)
 	if (v__arguments(argc, argv))
 		return (1);
 	args = p__arguments(argc, argv);
+	// timer(TIME_START);
+	// debug("Current Time: %ld\n", timer(TIME_CHECK));
+	// usleep(MILISECOND * args.time_to_die);
+	// debug("Current Time: %ld\n", timer(TIME_CHECK));
+	// timer(TIME_RESTART);
+	// debug("Current Time: %ld\n", timer(TIME_CHECK));
+	// usleep(MILISECOND * args.time_to_sleep);
+	// debug("Current Time: %ld\n", timer(TIME_CHECK));
 	philosophers(
 		args.number_of_philosophers,
 		args.time_to_die,

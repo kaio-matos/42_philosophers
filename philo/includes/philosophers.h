@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 01:06:58 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/11 20:45:39 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/12 21:24:48 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,10 @@ t_list			*create_philosophers(
 );
 void			free_philosophers(t_list **philosophers);
 void			wait_philosophers(t_list *philosophers);
+int				is_philosopher_dead(
+	t_philosopher *philosopher,
+	long int start_time
+);
 
 /**
  * FORK
@@ -184,6 +188,8 @@ t_dlist			*find_fork_node_by_philosopher_id(
 \******************************************************************************/
 
 long int		get_program_time(void);
+long int		current_time_ms(void);
+long int		get_time_offset_ms(long	started_time);
 
 /******************************************************************************\
 * LOG																		   *
@@ -200,8 +206,9 @@ void			log_thinking(t_philosopher *philosopher);
 
 void	a__eat(t_philosopher *philosopher);
 void	a__sleep(t_philosopher *philosopher);
-void	a__take_fork(t_philosopher *philosopher, t_dlist *forks);
-void	a__put_forks_on_table(t_philosopher *philosopher, t_dlist *forks);
+int		a__take_fork(t_philosopher *philosopher, t_dlist *forks);
+void	a__put_forks_on_table(t_philosopher *philosopher, t_dlist *forks, int lender_philosopher_id);
+t_fork	*a__borrow_fork(t_philosopher *philosopher, t_fork *fork);
 void	a__think(t_philosopher *philosopher);
 
 /******************************************************************************\

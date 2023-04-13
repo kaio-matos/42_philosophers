@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 20:23:15 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/10 19:29:44 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/12 20:09:36 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	log_taken_fork(t_philosopher *philosopher)
 {
-	printf("%s%ld\t %i has taken a fork%s\n", SHELL_R, get_program_time(), philosopher->id, SHELL_RC);
+	printf("%s%ld\t %i has taken a fork%s\n", SHELL_BK, get_program_time(), philosopher->id, SHELL_RC);
 }
 
 void	log_eating(t_philosopher *philosopher)
