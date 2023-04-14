@@ -6,13 +6,13 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 21:43:03 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/13 21:53:48 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/14 19:56:30 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philosophers.h>
 
-int		a__take_fork(t_philosopher *philosopher, t_dlist *forks, pthread_mutex_t *mutex)
+int		a__take_fork(t_philosopher *philosopher, t_dlist *forks)
 {
 	t_dlist	*fork_node;
 	t_dlist	*fork_next_node;
@@ -36,12 +36,14 @@ int		a__take_fork(t_philosopher *philosopher, t_dlist *forks, pthread_mutex_t *m
 	while (fork->is_on_table == FALSE || borrowed_fork->is_on_table == FALSE)
 	{
 	}
-	pthread_mutex_lock(mutex);
+	pthread_mutex_lock(fork->mutex);
+	pthread_mutex_lock(borrowed_fork->mutex);
 	fork->is_on_table = FALSE;
 	borrowed_fork->is_on_table = FALSE;
 	lender_philosopher_id = borrowed_fork->philosopher_id;
 	borrowed_fork->philosopher_id = philosopher->id;
-	pthread_mutex_unlock(mutex);
+	pthread_mutex_unlock(fork->mutex);
+	pthread_mutex_unlock(borrowed_fork->mutex);
 	log_taken_fork(philosopher);
 	return (lender_philosopher_id);
 }
@@ -54,7 +56,7 @@ t_fork	*a__borrow_fork(t_philosopher *philosopher, t_fork *fork)
 	return (fork);
 }
 
-void	a__put_forks_on_table(t_philosopher *philosopher, t_dlist *forks, int lender_philosopher_id, pthread_mutex_t *mutex)
+void	a__put_forks_on_table(t_philosopher *philosopher, t_dlist *forks, int lender_philosopher_id)
 {
 	t_dlist	*fork_node;
 	t_dlist	*fork_to_return;
@@ -86,9 +88,11 @@ void	a__put_forks_on_table(t_philosopher *philosopher, t_dlist *forks, int lende
 		debug("%sa__put_forks_on_table: But the fork was already on the table, something has gone wrong!%s\n", SHELL_R, SHELL_RC);
 		return ;
 	}
-	pthread_mutex_lock(mutex);
+	pthread_mutex_lock(get_fork(fork_node)->mutex);
+	pthread_mutex_lock(get_fork(fork_to_return)->mutex);
 	get_fork(fork_node)->is_on_table = TRUE;
 	get_fork(fork_to_return)->is_on_table = TRUE;
 	get_fork(fork_to_return)->philosopher_id = lender_philosopher_id;
-	pthread_mutex_unlock(mutex);
+	pthread_mutex_unlock(get_fork(fork_node)->mutex);
+	pthread_mutex_unlock(get_fork(fork_to_return)->mutex);
 }

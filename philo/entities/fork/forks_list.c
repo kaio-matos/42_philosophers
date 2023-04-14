@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:20:41 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/13 21:07:11 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/14 19:57:32 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,19 @@ t_dlist	*find_fork_node_by_philosopher_id(t_dlist *forks, int philosopher_id)
 	return (NULL);
 }
 
+static void	free_fork(void *void_fork)
+{
+	t_fork	*fork;
+
+	fork = void_fork;
+	pthread_mutex_destroy(fork->mutex);
+	free(fork->mutex);
+	free(fork);
+}
+
 void	free_forks(t_dlist **forks)
 {
-	ft_dlstclear(forks, &free);
+	ft_dlstclear(forks, &free_fork);
 	free(*forks);
 }
 
