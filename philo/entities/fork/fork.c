@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:20:41 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/11 20:41:54 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/13 20:06:51 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,7 @@ t_fork	*create_fork(int id, int philosopher_id)
 
 t_fork	*get_fork(t_dlist *node)
 {
+	if (!node)
+		return (NULL);
 	return ((t_fork *)node->content);
 }

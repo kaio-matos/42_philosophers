@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 20:38:23 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/12 22:02:11 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/13 21:49:45 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,34 +27,20 @@ void	*routine(void	*args_void)
 	args = args_void;
 	i = args->philosopher->times_to_eat;
 	start_time = current_time_ms();
-	if (args->philosopher->id % 2 == 0)
-		usleep(500);
+	// if (args->philosopher->id % 2 == 0)
+	// 	usleep(500);
 	while (i || args->philosopher->times_to_eat == -1)
 	{
 		if (is_philosopher_dead(args->philosopher, start_time))
 			break ;
-		pthread_mutex_lock(args->mutex);
+		lender_philosopher_id = a__take_fork(args->philosopher, args->forks, args->mutex);
+		if (lender_philosopher_id == FALSE)
+			break ;
 		if (is_philosopher_dead(args->philosopher, start_time))
-		{
-			pthread_mutex_unlock(args->mutex);
 			break ;
-		}
-		lender_philosopher_id = a__take_fork(args->philosopher, args->forks);
-		if (!lender_philosopher_id)
-		{
-			pthread_mutex_unlock(args->mutex);
-			break ;
-		}
-		if (is_philosopher_dead(args->philosopher, start_time))
-		{
-			pthread_mutex_unlock(args->mutex);
-			break ;
-		}
 		start_time = current_time_ms();
 		a__eat(args->philosopher);
-		a__put_forks_on_table(args->philosopher, args->forks, lender_philosopher_id);
-		pthread_mutex_unlock(args->mutex);
-
+		a__put_forks_on_table(args->philosopher, args->forks, lender_philosopher_id, args->mutex);
 		if (is_philosopher_dead(args->philosopher, start_time))
 			break ;
 

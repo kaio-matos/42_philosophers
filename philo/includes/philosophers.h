@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 01:06:58 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/12 21:24:48 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/13 19:51:51 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,8 +206,8 @@ void			log_thinking(t_philosopher *philosopher);
 
 void	a__eat(t_philosopher *philosopher);
 void	a__sleep(t_philosopher *philosopher);
-int		a__take_fork(t_philosopher *philosopher, t_dlist *forks);
-void	a__put_forks_on_table(t_philosopher *philosopher, t_dlist *forks, int lender_philosopher_id);
+int		a__take_fork(t_philosopher *philosopher, t_dlist *forks, pthread_mutex_t *mutex);
+void	a__put_forks_on_table(t_philosopher *philosopher, t_dlist *forks, int lender_philosopher_id, pthread_mutex_t *mutex);
 t_fork	*a__borrow_fork(t_philosopher *philosopher, t_fork *fork);
 void	a__think(t_philosopher *philosopher);
 
