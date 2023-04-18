@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 20:39:44 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/03 21:31:14 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/17 20:44:06 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static int	is_valid(char *arg, char *name)
 
 int	v__arguments(int argc, char **argv)
 {
+	(void)argc;
 	if (!is_valid(argv[1], "number_of_philosophers"))
 		return (1);
 	if (!is_valid(argv[2], "time_to_die"))

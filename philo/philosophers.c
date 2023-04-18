@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 20:38:23 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/14 19:51:57 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/17 21:09:24 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,23 @@ void	*routine(void	*args_void)
 	t_philosopher_routine	*args;
 	int						i;
 	long					start_time;
-	int						lender_philosopher_id;
+	t_using_forks			*using_forks;
 
 	args = args_void;
 	i = args->philosopher->times_to_eat;
 	start_time = current_time_ms();
-	// if (args->philosopher->id % 2 == 0)
-	// 	usleep(500);
 	while (i || args->philosopher->times_to_eat == -1)
 	{
 		if (is_philosopher_dead(args->philosopher, start_time))
 			break ;
-		lender_philosopher_id = a__take_fork(args->philosopher, args->forks);
-		if (lender_philosopher_id == FALSE)
+		using_forks = a__take_fork(args->philosopher, args->forks);
+		if (!using_forks)
 			break ;
 		if (is_philosopher_dead(args->philosopher, start_time))
 			break ;
 		start_time = current_time_ms();
 		a__eat(args->philosopher);
-		a__put_forks_on_table(args->philosopher, args->forks, lender_philosopher_id);
+		a__put_forks_on_table(args->philosopher, args->forks, using_forks);
 		if (is_philosopher_dead(args->philosopher, start_time))
 			break ;
 
@@ -56,6 +54,7 @@ void	*routine(void	*args_void)
 		i--;
 	}
 	free(args);
+	return (NULL);
 }
 
 void	attach_forks_to_philosophers(t_dlist	*forks, t_list *philosophers)
@@ -99,7 +98,6 @@ void	philosophers(
 {
 	t_list			*philosophers;
 	t_dlist			*forks;
-	pthread_mutex_t	*mutex;
 
 	philosophers = create_philosophers(
 		number_of_philosophers,
@@ -121,5 +119,4 @@ void	philosophers(
 	wait_philosophers(philosophers);
 	free_forks(&forks);
 	free_philosophers(&philosophers);
-	free(mutex);
 }

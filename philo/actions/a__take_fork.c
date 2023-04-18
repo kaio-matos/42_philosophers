@@ -6,46 +6,41 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 21:43:03 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/14 19:56:30 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/17 21:14:53 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philosophers.h>
 
-int		a__take_fork(t_philosopher *philosopher, t_dlist *forks)
+t_using_forks	*a__take_fork(t_philosopher *philosopher, t_dlist *forks)
 {
 	t_dlist	*fork_node;
-	t_dlist	*fork_next_node;
 	t_fork	*borrowed_fork;
 	t_fork	*fork;
-	int		lender_philosopher_id;
+	t_using_forks	*using_forks;
 
+	using_forks = ft_salloc(sizeof(t_using_forks));
 	fork_node = find_fork_node_by_philosopher_id(forks, philosopher->id);
 	while (!fork_node)
 		fork_node = find_fork_node_by_philosopher_id(forks, philosopher->id);
 	fork = get_fork(fork_node);
 	if (fork_node->next)
 		borrowed_fork = get_fork(fork_node->next);
-	else if (get_fork(fork_node)->id == get_fork(forks)->id)
+	else if (fork->id == get_fork(forks)->id)
 	{
 		debug("%sa__take_fork: The philosopher %i tried to take a fork from the table!\na__take_fork: But actually the fork he tried to take it was his own!%s\n", SHELL_R, philosopher->id, SHELL_RC);
-		return (FALSE);
+		return (NULL);
 	}
 	else
 		borrowed_fork = get_fork(forks);
-	while (fork->is_on_table == FALSE || borrowed_fork->is_on_table == FALSE)
-	{
-	}
+	if (fork->id == borrowed_fork->id)
+		debug("%sa__take_fork: The philosopher %i ranned into a deadlock situation\n", SHELL_R, philosopher->id, SHELL_RC);
 	pthread_mutex_lock(fork->mutex);
 	pthread_mutex_lock(borrowed_fork->mutex);
-	fork->is_on_table = FALSE;
-	borrowed_fork->is_on_table = FALSE;
-	lender_philosopher_id = borrowed_fork->philosopher_id;
-	borrowed_fork->philosopher_id = philosopher->id;
-	pthread_mutex_unlock(fork->mutex);
-	pthread_mutex_unlock(borrowed_fork->mutex);
+	using_forks->mine = fork;
+	using_forks->borrowed = borrowed_fork;
 	log_taken_fork(philosopher);
-	return (lender_philosopher_id);
+	return (using_forks);
 }
 
 t_fork	*a__borrow_fork(t_philosopher *philosopher, t_fork *fork)
@@ -56,43 +51,10 @@ t_fork	*a__borrow_fork(t_philosopher *philosopher, t_fork *fork)
 	return (fork);
 }
 
-void	a__put_forks_on_table(t_philosopher *philosopher, t_dlist *forks, int lender_philosopher_id)
+void	a__put_forks_on_table(t_philosopher *philosopher, t_dlist *forks, t_using_forks *using_forks)
 {
-	t_dlist	*fork_node;
-	t_dlist	*fork_to_return;
-
-	fork_node = find_fork_node_by_philosopher_id(forks, philosopher->id);
-	if (!fork_node)
-	{
-		debug("%sa__put_forks_on_table: The philosopher %i tried to return to the table your own fork!\na__take_fork: But couldn't find it!%s\n", SHELL_R, philosopher->id, SHELL_RC);
-		return ;
-	}
-	if (
-		fork_node->next &&
-		get_fork(fork_node->next)->philosopher_id == philosopher->id
-	)
-		fork_to_return = fork_node->next;
-	else if (
-		forks &&
-		get_fork(forks)->philosopher_id == philosopher->id
-	)
-		fork_to_return = forks;
-	else
-	{
-		debug("%sa__put_forks_on_table: The philosopher %i couldn't find the borrowed fork from %i lender philosopher!\n\n%s", SHELL_R, philosopher->id, lender_philosopher_id, SHELL_RC);
-		return ;
-	}
-	if (get_fork(fork_node)->is_on_table || get_fork(fork_to_return)->is_on_table)
-	{
-		debug("%sa__put_forks_on_table: The philosopher %i tried to return the fork to the table!%s\n", SHELL_R, philosopher->id, SHELL_RC);
-		debug("%sa__put_forks_on_table: But the fork was already on the table, something has gone wrong!%s\n", SHELL_R, SHELL_RC);
-		return ;
-	}
-	pthread_mutex_lock(get_fork(fork_node)->mutex);
-	pthread_mutex_lock(get_fork(fork_to_return)->mutex);
-	get_fork(fork_node)->is_on_table = TRUE;
-	get_fork(fork_to_return)->is_on_table = TRUE;
-	get_fork(fork_to_return)->philosopher_id = lender_philosopher_id;
-	pthread_mutex_unlock(get_fork(fork_node)->mutex);
-	pthread_mutex_unlock(get_fork(fork_to_return)->mutex);
+	pthread_mutex_unlock(using_forks->borrowed->mutex);
+	pthread_mutex_unlock(using_forks->mine->mutex);
+	free(using_forks);
+	// debug("%s%ld\t %i has returned a fork%s\n", SHELL_BK, get_program_time(), philosopher->id, SHELL_RC);
 }

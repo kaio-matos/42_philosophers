@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 01:06:58 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/14 19:56:00 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/17 21:15:13 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,19 +73,23 @@ typedef struct s_fork
 	int				id;
 	int				philosopher_id;
 	pthread_mutex_t *mutex;
-	int				is_on_table;
 }	t_fork;
 
 typedef struct s_philosopher
 {
 	int			id;
-	// t_forks		forks;
 	pthread_t	thread;
 	int			time_to_die;
 	int			time_to_eat;
 	int			time_to_sleep;
 	int			times_to_eat;
 }	t_philosopher;
+
+typedef struct s_using_forks
+{
+	t_fork		*mine;
+	t_fork		*borrowed;
+}	t_using_forks;
 
 typedef struct s_philosopher_routine
 {
@@ -190,6 +194,7 @@ t_dlist			*find_fork_node_by_philosopher_id(
 long int		get_program_time(void);
 long int		current_time_ms(void);
 long int		get_time_offset_ms(long	started_time);
+void			mssleep(size_t ms_time);
 
 /******************************************************************************\
 * LOG																		   *
@@ -206,8 +211,8 @@ void			log_thinking(t_philosopher *philosopher);
 
 void	a__eat(t_philosopher *philosopher);
 void	a__sleep(t_philosopher *philosopher);
-int		a__take_fork(t_philosopher *philosopher, t_dlist *forks);
-void	a__put_forks_on_table(t_philosopher *philosopher, t_dlist *forks, int lender_philosopher_id);
+t_using_forks	*a__take_fork(t_philosopher *philosopher, t_dlist *forks);
+void	a__put_forks_on_table(t_philosopher *philosopher, t_dlist *forks, t_using_forks *using_forks);
 t_fork	*a__borrow_fork(t_philosopher *philosopher, t_fork *fork);
 void	a__think(t_philosopher *philosopher);
 

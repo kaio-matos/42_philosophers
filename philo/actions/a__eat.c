@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 21:35:27 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/11 20:01:32 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/17 21:07:01 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 void	a__eat(t_philosopher *philosopher)
 {
 	log_eating(philosopher);
-	usleep(MILISECOND * philosopher->time_to_eat);
+	mssleep(philosopher->time_to_eat);
 }
