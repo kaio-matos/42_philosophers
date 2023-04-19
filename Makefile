@@ -20,6 +20,7 @@ NAME				= philosophers
 CCF_INCL_MANDATORY	= -I ./$(SRC_DIR)/includes
 
 C_REMOVE_LATER		= $(addprefix log/, debug.c)
+C_THREADS_FILES		= $(addprefix threads/, th__observer.c th__philosophers.c)
 C_ACTIONS_FILES		= $(addprefix actions/, a__eat.c a__sleep.c a__take_fork.c a__think.c)
 C_TIME_FILES		= $(addprefix time/, time.c mssleep.c)
 C_LOG_FILES			= $(addprefix log/, log.c)
@@ -29,7 +30,7 @@ C_PARSER_FILES		= $(addprefix parser/, p__arguments.c)
 C_VALIDATION_FILES	= $(addprefix validation/, v__arguments.c)
 C_LINKED_LISTS		= $(addprefix linked_list/, $(addprefix singly/, ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c) $(addprefix doubly/, ft_dlstnew.c ft_dlstadd_front.c ft_dlstadd_begin.c ft_dlstfirst.c ft_dlstlast.c ft_dlstadd_back.c ft_dlstsize.c ft_dlstdelone.c ft_dlstclear.c ft_dlstmap.c ft_dlstiter.c))
 
-C_FILES_MANDATORY	= main.c philosophers.c $(C_VALIDATION_FILES) $(C_PARSER_FILES) $(C_UTILS_FILES) $(C_LINKED_LISTS) $(C_ENTITIES_FILES) $(C_LOG_FILES) $(C_TIME_FILES) $(C_ACTIONS_FILES) $(C_REMOVE_LATER)
+C_FILES_MANDATORY	= main.c philosophers.c $(C_VALIDATION_FILES) $(C_PARSER_FILES) $(C_UTILS_FILES) $(C_LINKED_LISTS) $(C_ENTITIES_FILES) $(C_LOG_FILES) $(C_TIME_FILES) $(C_ACTIONS_FILES) $(C_REMOVE_LATER) $(C_THREADS_FILES)
 FILES_MANDATORY		= $(C_FILES_MANDATORY)
 SRCS_MANDATORY		= $(addprefix $(SRC_DIR)/,$(FILES_MANDATORY))
 OBJS_MANDATORY		= $(addprefix $(OBJS_DIR)/,$(FILES_MANDATORY:.c=.o))

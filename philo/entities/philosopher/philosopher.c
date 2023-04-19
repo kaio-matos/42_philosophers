@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:18:08 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/12 20:07:01 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/18 21:32:50 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,23 @@ t_philosopher	*create_philosopher(
 	philosopher->time_to_eat = time_to_eat;
 	philosopher->time_to_sleep = time_to_sleep;
 	philosopher->times_to_eat = times_to_eat;
+	philosopher->times_eaten = 0;
+	philosopher->last_meal_ms = -1;
 	return (philosopher);
 }
 
-int	is_philosopher_dead(t_philosopher *philosopher, long int start_time)
+int	is_philosopher_dead(t_philosopher *philosopher)
 {
-	if(get_time_offset_ms(start_time) > philosopher->time_to_die)
+	if (philosopher->last_meal_ms == -1)
+		return (FALSE);
+	if (philosopher->times_eaten == philosopher->times_to_eat)
+		return (FALSE);
+	if(get_time_offset_ms(philosopher->last_meal_ms) > philosopher->time_to_die)
 	{
-		printf("%s%ld\t %i died%s\n", SHELL_R, get_program_time(), philosopher->id, SHELL_RC);
-		return (1);
+		log_death(philosopher);
+		return (TRUE);
 	}
-	return (0);
+	return (FALSE);
 }
 
 t_philosopher	*get_philosopher(t_list *node)

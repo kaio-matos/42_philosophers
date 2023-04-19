@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:32:36 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/11 20:00:09 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/18 21:38:31 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,17 @@ void	free_philosophers(t_list **philosophers)
 {
 	ft_lstclear(philosophers, &free);
 	free(*philosophers);
+}
+
+int	are_philosophers_satisfied(t_list *philosophers)
+{
+	while (philosophers)
+	{
+		if (get_philosopher(philosophers)->times_eaten != get_philosopher(philosophers)->times_to_eat)
+			return (FALSE);
+		philosophers = philosophers->next;
+	}
+	return (TRUE);
 }
 
 void	wait_philosophers(t_list *philosophers)

@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 20:23:15 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/12 20:09:36 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/18 20:32:49 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,9 @@ void	log_sleeping(t_philosopher *philosopher)
 void	log_thinking(t_philosopher *philosopher)
 {
 	printf("%s%ld\t %i is thinking%s\n", SHELL_B, get_program_time(), philosopher->id, SHELL_RC);
+}
+
+void	log_death(t_philosopher *philosopher)
+{
+	printf("%s%ld\t %i died%s\n", SHELL_R, get_program_time(), philosopher->id, SHELL_RC);
 }

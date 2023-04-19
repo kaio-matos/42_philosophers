@@ -6,87 +6,13 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 20:38:23 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/17 21:09:24 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/18 21:09:39 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philosophers.h>
 
-/**
- * When a philosopher has finished eating, they put their forks back on the table and
- * start sleeping. Once awake, they start thinking again. The simulation stops when
- * a philosopher dies of starvation.
-*/
-void	*routine(void	*args_void)
-{
-	t_philosopher_routine	*args;
-	int						i;
-	long					start_time;
-	t_using_forks			*using_forks;
-
-	args = args_void;
-	i = args->philosopher->times_to_eat;
-	start_time = current_time_ms();
-	while (i || args->philosopher->times_to_eat == -1)
-	{
-		if (is_philosopher_dead(args->philosopher, start_time))
-			break ;
-		using_forks = a__take_fork(args->philosopher, args->forks);
-		if (!using_forks)
-			break ;
-		if (is_philosopher_dead(args->philosopher, start_time))
-			break ;
-		start_time = current_time_ms();
-		a__eat(args->philosopher);
-		a__put_forks_on_table(args->philosopher, args->forks, using_forks);
-		if (is_philosopher_dead(args->philosopher, start_time))
-			break ;
-
-		a__sleep(args->philosopher);
-
-		if (is_philosopher_dead(args->philosopher, start_time))
-			break ;
-
-		a__think(args->philosopher);
-
-		if (is_philosopher_dead(args->philosopher, start_time))
-			break ;
-		i--;
-	}
-	free(args);
-	return (NULL);
-}
-
-void	attach_forks_to_philosophers(t_dlist	*forks, t_list *philosophers)
-{
-	while (philosophers)
-	{
-		get_fork(forks)->philosopher_id = get_philosopher(philosophers)->id;
-		forks = forks->next;
-		philosophers = philosophers->next;
-	}
-}
-
-void	create_philosophers_threads(
-	t_list *philosophers,
-	t_dlist *forks,
-	void *(*philosopher_routine)(void *)
-)
-{
-	t_philosopher_routine	*philosopher_routine_args;
-
-	while (philosophers)
-	{
-		philosopher_routine_args = ft_salloc(sizeof(t_philosopher_routine));
-		philosopher_routine_args->philosopher = get_philosopher(philosophers);
-		philosopher_routine_args->forks = forks;
-		debug("%sCreating thread for Philosopher: %i %s\n", SHELL_GB, philosopher_routine_args->philosopher->id, SHELL_RC);
-		if (pthread_create(&get_philosopher(philosophers)->thread, NULL, philosopher_routine, philosopher_routine_args)) {
-			printf("Error creating thread\n"); // TODO
-		}
-		philosophers = philosophers->next;
-	}
-}
+static void	attach_forks_to_philosophers(t_dlist	*forks, t_list *philosophers);
 
 void	philosophers(
 	int number_of_philosophers,
@@ -96,9 +22,14 @@ void	philosophers(
 	int number_of_times_each_philosopher_must_eat
 )
 {
-	t_list			*philosophers;
-	t_dlist			*forks;
+	t_list		*philosophers;
+	t_dlist		*forks;
+	pthread_t	*observer;
+	int 		*is_simulation_running;
 
+	observer = ft_salloc(sizeof(pthread_t));
+	is_simulation_running = ft_salloc(sizeof(int));
+	*is_simulation_running = TRUE;
 	philosophers = create_philosophers(
 		number_of_philosophers,
 		time_to_die,
@@ -115,8 +46,23 @@ void	philosophers(
 	printf("number_of_times_each_philosopher_must_eat\t%i\n\n", number_of_times_each_philosopher_must_eat);
 
 	printf("%sTIME\t ID ACTION%s\n", SHELL_CB, SHELL_RC);
-	create_philosophers_threads(philosophers, forks, &routine);
+	th__create_observer(philosophers, is_simulation_running, observer);
+	th__create_philosophers_threads(philosophers, forks, is_simulation_running, &th_philosopher_routine);
 	wait_philosophers(philosophers);
+	if (pthread_join(*observer, NULL))
+		printf("Error waiting thread\n");
+	free(is_simulation_running);
+	free(observer);
 	free_forks(&forks);
 	free_philosophers(&philosophers);
+}
+
+static void	attach_forks_to_philosophers(t_dlist	*forks, t_list *philosophers)
+{
+	while (philosophers)
+	{
+		get_fork(forks)->philosopher_id = get_philosopher(philosophers)->id;
+		forks = forks->next;
+		philosophers = philosophers->next;
+	}
 }
