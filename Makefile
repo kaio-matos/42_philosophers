@@ -3,8 +3,9 @@ SRC_DIR				= philo
 BONUS_DIR			= bonus
 
 CC					= cc
-CCF_STRICT			= -Wall -Wextra -Werror -pthread
+CCF_STRICT			= -Wall -Wextra -Werror
 CCF_DEBUG			= -g3 -D VERBOSE=1
+LIBS				= -pthread
 
 RM					= rm -rf
 
