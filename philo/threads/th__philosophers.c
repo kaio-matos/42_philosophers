@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 21:38:57 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/18 21:33:44 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/19 21:09:30 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,17 @@ void	*th_philosopher_routine(void	*args_void)
 	t_philosopher_routine	*args;
 	int						i;
 	t_using_forks			*using_forks;
+	t_dlist					*own_fork_node;
 
 	args = args_void;
 	i = args->philosopher->times_to_eat;
+	own_fork_node = find_fork_node_by_philosopher_id(args->forks, args->philosopher->id);
 	args->philosopher->last_meal_ms = current_time_ms();
 	while (i || args->philosopher->times_to_eat == -1)
 	{
 		if (!*args->is_simulation_running)
 			break ;
-		using_forks = a__take_fork(args);
+		using_forks = a__take_fork(args, own_fork_node);
 		if (!using_forks)
 			break ;
 		if (!*args->is_simulation_running)
@@ -74,7 +76,6 @@ void	th__create_philosophers_threads(
 		philosopher_routine_args->philosopher = get_philosopher(philosophers);
 		philosopher_routine_args->forks = forks;
 		philosopher_routine_args->is_simulation_running = is_simulation_running;
-		debug("%sCreating thread for Philosopher: %i %s\n", SHELL_GB, philosopher_routine_args->philosopher->id, SHELL_RC);
 		if (pthread_create(&get_philosopher(philosophers)->thread, NULL, philosopher_routine, philosopher_routine_args)) {
 			printf("Error creating thread\n"); // TODO
 		}
