@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 21:38:57 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/20 20:38:50 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/21 01:49:25 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,17 @@ void	*th_philosopher_routine(void	*args_void)
 	own_fork_node = find_fork_node_by_philosopher_id(args->forks, args->philosopher->id);
 	args->philosopher->last_meal_ms = current_time_ms();
 	if (args->philosopher->id % 2 == 0)
-		usleep(100);
+		usleep(1000);
 	while (i || args->philosopher->times_to_eat == -1)
 	{
 		if (!*args->is_simulation_running)
 			break ;
 		using_forks = a__take_fork(args, own_fork_node);
 		if (!*args->is_simulation_running || !using_forks)
+		{
+			a__put_forks_on_table(using_forks);
 			break ;
+		}
 		args->philosopher->last_meal_ms = current_time_ms();
 		a__eat(args);
 		a__put_forks_on_table(using_forks);
