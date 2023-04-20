@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 21:38:57 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/20 02:20:45 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/20 20:20:38 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,6 @@ void	*th_philosopher_routine(void	*args_void)
 			break ;
 		args->philosopher->last_meal_ms = current_time_ms();
 		a__eat(args);
-		if (!*args->is_simulation_running)
-		{
-			pthread_mutex_unlock(using_forks->borrowed->mutex);
-			pthread_mutex_unlock(using_forks->mine->mutex);
-			free(using_forks);
-			break ;
-		}
 		a__put_forks_on_table(using_forks);
 		if (!*args->is_simulation_running)
 			break ;
