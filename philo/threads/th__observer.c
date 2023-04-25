@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 21:38:57 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/24 20:19:24 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/25 02:28:29 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ void	*th_observer_routine(void	*args_void)
 		if (are_philosophers_satisfied(philosophers_temp))
 			break ;
 		if (is_philosopher_dead(get_philosopher(args->philosophers), args->simulation))
-		{
-			args->simulation->is_simulation_running = FALSE;
 			break ;
-		}
 		if (args->philosophers->next)
 			args->philosophers = args->philosophers->next;
 		else
