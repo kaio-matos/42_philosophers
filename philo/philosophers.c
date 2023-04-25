@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 20:38:23 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/18 21:09:39 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/24 20:58:01 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,13 @@ void	philosophers(
 	int number_of_times_each_philosopher_must_eat
 )
 {
-	t_list		*philosophers;
-	t_dlist		*forks;
-	pthread_t	*observer;
-	int 		*is_simulation_running;
+	t_list			*philosophers;
+	t_dlist			*forks;
+	pthread_t		*observer;
+	t_simulation	*simulation;
 
 	observer = ft_salloc(sizeof(pthread_t));
-	is_simulation_running = ft_salloc(sizeof(int));
-	*is_simulation_running = TRUE;
+	simulation = create_simulation();
 	philosophers = create_philosophers(
 		number_of_philosophers,
 		time_to_die,
@@ -46,12 +45,12 @@ void	philosophers(
 	printf("number_of_times_each_philosopher_must_eat\t%i\n\n", number_of_times_each_philosopher_must_eat);
 
 	printf("%sTIME\t ID ACTION%s\n", SHELL_CB, SHELL_RC);
-	th__create_observer(philosophers, is_simulation_running, observer);
-	th__create_philosophers_threads(philosophers, forks, is_simulation_running, &th_philosopher_routine);
+	th__create_observer(philosophers, simulation, observer);
+	th__create_philosophers_threads(philosophers, forks, simulation, &th_philosopher_routine);
 	wait_philosophers(philosophers);
 	if (pthread_join(*observer, NULL))
 		printf("Error waiting thread\n");
-	free(is_simulation_running);
+	free_simulation(simulation);
 	free(observer);
 	free_forks(&forks);
 	free_philosophers(&philosophers);

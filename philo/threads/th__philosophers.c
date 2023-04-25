@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 21:38:57 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/21 01:49:25 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/24 20:17:37 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void	*th_philosopher_routine(void	*args_void)
 		usleep(1000);
 	while (i || args->philosopher->times_to_eat == -1)
 	{
-		if (!*args->is_simulation_running)
+		if (!args->simulation->is_simulation_running)
 			break ;
 		using_forks = a__take_fork(args, own_fork_node);
-		if (!*args->is_simulation_running || !using_forks)
+		if (!args->simulation->is_simulation_running || !using_forks)
 		{
 			a__put_forks_on_table(using_forks);
 			break ;
@@ -43,13 +43,13 @@ void	*th_philosopher_routine(void	*args_void)
 		args->philosopher->last_meal_ms = current_time_ms();
 		a__eat(args);
 		a__put_forks_on_table(using_forks);
-		if (!*args->is_simulation_running)
+		if (!args->simulation->is_simulation_running)
 			break ;
 		a__sleep(args);
-		if (!*args->is_simulation_running)
+		if (!args->simulation->is_simulation_running)
 			break ;
-		a__think(args->philosopher);
-		if (!*args->is_simulation_running)
+		a__think(args);
+		if (!args->simulation->is_simulation_running)
 			break ;
 		i--;
 	}
@@ -60,7 +60,7 @@ void	*th_philosopher_routine(void	*args_void)
 void	th__create_philosophers_threads(
 	t_list *philosophers,
 	t_dlist *forks,
-	const int *is_simulation_running,
+	t_simulation *simulation,
 	void *(*philosopher_routine)(void *)
 )
 {
@@ -71,7 +71,7 @@ void	th__create_philosophers_threads(
 		philosopher_routine_args = ft_salloc(sizeof(t_philosopher_routine));
 		philosopher_routine_args->philosopher = get_philosopher(philosophers);
 		philosopher_routine_args->forks = forks;
-		philosopher_routine_args->is_simulation_running = is_simulation_running;
+		philosopher_routine_args->simulation = simulation;
 		if (pthread_create(&get_philosopher(philosophers)->thread, NULL, philosopher_routine, philosopher_routine_args)) {
 			printf("Error creating thread\n"); // TODO
 		}

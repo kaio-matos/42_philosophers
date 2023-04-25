@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mssleep.c                                          :+:      :+:    :+:   */
+/*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 21:05:13 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/24 20:05:11 by kmatos-s         ###   ########.fr       */
+/*   Created: 2023/04/24 20:54:30 by kmatos-s          #+#    #+#             */
+/*   Updated: 2023/04/24 20:59:08 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philosophers.h>
 
-void	mssleep(size_t ms_time)
+t_simulation	*create_simulation(void)
 {
-	size_t	start;
+	t_simulation	*simulation;
 
-	start = current_time_ms();
-	while (ms_time > current_time_ms() - start)
-		usleep(100);
+	simulation = ft_salloc(sizeof(t_simulation));
+	simulation->is_simulation_running = TRUE;
+	simulation->mutex = ft_salloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(simulation->mutex, NULL);
+	return (simulation);
 }
 
-void	mssleep_checking_death(t_philosopher_routine *args, size_t ms_time)
+void	free_simulation(t_simulation *simulation)
 {
-	size_t	start;
-
-	start = current_time_ms();
-	while (ms_time > current_time_ms() - start && args->simulation->is_simulation_running)
-		usleep(100);
+	pthread_mutex_destroy(simulation->mutex);
+	free(simulation->mutex);
+	free(simulation);
 }

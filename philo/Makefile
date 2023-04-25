@@ -1,5 +1,5 @@
 OBJS_DIR			= objects
-SRC_DIR				= philo
+SRC_DIR				= .
 BONUS_DIR			= bonus
 
 CC					= cc
@@ -17,7 +17,7 @@ endif
 # MANDATORY
 ################################################################################
 
-NAME				= philosophers
+NAME				= philo
 CCF_INCL_MANDATORY	= -I ./$(SRC_DIR)/includes
 
 C_REMOVE_LATER		= $(addprefix log/, debug.c)
@@ -25,7 +25,7 @@ C_THREADS_FILES		= $(addprefix threads/, th__observer.c th__philosophers.c)
 C_ACTIONS_FILES		= $(addprefix actions/, a__eat.c a__sleep.c a__take_fork.c a__think.c)
 C_TIME_FILES		= $(addprefix time/, time.c mssleep.c)
 C_LOG_FILES			= $(addprefix log/, log.c)
-C_ENTITIES_FILES	= $(addprefix entities/, fork/fork.c fork/forks_list.c philosopher/philosopher.c philosopher/philosophers_list.c)
+C_ENTITIES_FILES	= $(addprefix entities/, fork/fork.c fork/forks_list.c philosopher/philosopher.c philosopher/philosophers_list.c simulation/simulation.c)
 C_UTILS_FILES		= $(addprefix utils/, ft_atoi.c ft_isdigit.c ft_isstrdigit.c ft_salloc.c)
 C_PARSER_FILES		= $(addprefix parser/, p__arguments.c)
 C_VALIDATION_FILES	= $(addprefix validation/, v__arguments.c)

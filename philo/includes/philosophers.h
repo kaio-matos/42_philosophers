@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 01:06:58 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/19 20:58:24 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/24 20:59:11 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ typedef struct s_arguments
 	int	number_of_times_each_philosopher_must_eat;
 }	t_arguments;
 
-typedef struct s_forks
+typedef struct s_simulation
 {
-	int	left;
-	int	right;
-}	t_forks;
+	int				is_simulation_running;
+	pthread_mutex_t	*mutex;
+}	t_simulation;
 
 typedef struct s_fork
 {
@@ -97,13 +97,13 @@ typedef struct s_philosopher_routine
 {
 	t_philosopher	*philosopher;
 	t_dlist			*forks;
-	const int		*is_simulation_running;
+	t_simulation	*simulation;
 }	t_philosopher_routine;
 
 typedef struct s_observer_routine
 {
-	t_list	*philosophers;
-	int		*is_simulation_running;
+	t_list			*philosophers;
+	t_simulation	*simulation;
 }	t_observer_routine;
 
 /**
@@ -168,7 +168,7 @@ t_list			*create_philosophers(
 );
 void			free_philosophers(t_list **philosophers);
 void			wait_philosophers(t_list *philosophers);
-int				is_philosopher_dead(t_philosopher *philosopher);
+int				is_philosopher_dead(t_philosopher *philosopher, t_simulation *simulation);
 int				are_philosophers_satisfied(t_list *philosophers);
 
 /**
@@ -185,16 +185,22 @@ t_dlist			*find_fork_node_by_philosopher_id(
 					int philosopher_id
 					);
 
+/**
+ * SIMULATION
+*/
+t_simulation	*create_simulation(void);
+void			free_simulation(t_simulation *simulation);
+
 /******************************************************************************\
 * THREADS																	   *
 \******************************************************************************/
 
-void			th__create_observer(t_list *philosophers, int *is_simulation_running, pthread_t	*thread);
+void			th__create_observer(t_list *philosophers, t_simulation *simulation, pthread_t	*thread);
 void			*th_philosopher_routine(void *args_void);
 void			th__create_philosophers_threads(
 					t_list *philosophers,
 					t_dlist *forks,
-					const int *is_simulation_running,
+					t_simulation *simulation,
 					void *(*philosopher_routine)(void *)
 				);
 
@@ -212,11 +218,11 @@ void			mssleep_checking_death(t_philosopher_routine *args, size_t ms_time);
 * LOG																		   *
 \******************************************************************************/
 
-void			log_taken_fork(t_philosopher *philosopher);
-void			log_eating(t_philosopher *philosopher);
-void			log_sleeping(t_philosopher *philosopher);
-void			log_thinking(t_philosopher *philosopher);
-void			log_death(t_philosopher *philosopher);
+void			log_taken_fork(t_philosopher *philosopher, t_simulation *simulation);
+void			log_eating(t_philosopher *philosopher, t_simulation *simulation);
+void			log_sleeping(t_philosopher *philosopher, t_simulation *simulation);
+void			log_thinking(t_philosopher *philosopher, t_simulation *simulation);
+void			log_death(t_philosopher *philosopher, t_simulation *simulation);
 
 /******************************************************************************\
 * ACTIONS																	   *
@@ -226,7 +232,7 @@ void			a__eat(t_philosopher_routine *args);
 void			a__sleep(t_philosopher_routine *args);
 t_using_forks	*a__take_fork(t_philosopher_routine *args, t_dlist *fork_node);
 void			a__put_forks_on_table(t_using_forks *using_forks);
-void			a__think(t_philosopher *philosopher);
+void			a__think(t_philosopher_routine *args);
 
 /******************************************************************************\
 * REMOVE LATER																   *

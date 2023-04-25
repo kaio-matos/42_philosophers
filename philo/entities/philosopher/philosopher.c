@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:18:08 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/18 21:32:50 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/24 20:19:50 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_philosopher	*create_philosopher(
 	return (philosopher);
 }
 
-int	is_philosopher_dead(t_philosopher *philosopher)
+int	is_philosopher_dead(t_philosopher *philosopher, t_simulation *simulation)
 {
 	if (philosopher->last_meal_ms == -1)
 		return (FALSE);
@@ -41,7 +41,7 @@ int	is_philosopher_dead(t_philosopher *philosopher)
 		return (FALSE);
 	if(get_time_offset_ms(philosopher->last_meal_ms) > philosopher->time_to_die)
 	{
-		log_death(philosopher);
+		log_death(philosopher, simulation);
 		return (TRUE);
 	}
 	return (FALSE);

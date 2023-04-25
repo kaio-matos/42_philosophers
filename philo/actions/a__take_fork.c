@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 21:43:03 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/21 01:49:00 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/24 20:16:29 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ t_using_forks	*a__take_fork(t_philosopher_routine *args, t_dlist *fork_node)
 	pthread_mutex_lock(borrowed_fork->mutex);
 	using_forks->mine = fork;
 	using_forks->borrowed = borrowed_fork;
-	if (!*args->is_simulation_running)
+	if (!args->simulation->is_simulation_running)
 	{
 		a__put_forks_on_table(using_forks);
 		return (NULL);
 	}
-	log_taken_fork(args->philosopher);
+	log_taken_fork(args->philosopher, args->simulation);
 	return (using_forks);
 }
 
