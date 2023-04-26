@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 21:17:30 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/12 19:48:45 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/26 19:42:30 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ long int	get_program_time(void)
 		has_saved = 1;
 		return (0);
 	}
-	started_at_ms = seconds_to_ms(program_started_at.tv_sec) + microseconds_to_ms(program_started_at.tv_usec);
+	started_at_ms = seconds_to_ms(program_started_at.tv_sec)
+		+ microseconds_to_ms(program_started_at.tv_usec);
 	return (get_time_offset_ms(started_at_ms));
 }
 
-long int	get_time_offset_ms(long	started_time)
+long int	get_time_offset_ms(long started_time)
 {
 	return (current_time_ms() - started_time);
 }
@@ -44,7 +45,8 @@ long int	current_time_ms(void)
 
 	if (gettimeofday(&current_time, NULL) == -1)
 		printf("Error"); //TODO
-	current_ms = seconds_to_ms(current_time.tv_sec) + microseconds_to_ms(current_time.tv_usec);
+	current_ms = seconds_to_ms(current_time.tv_sec)
+		+ microseconds_to_ms(current_time.tv_usec);
 	return (current_ms);
 }
 

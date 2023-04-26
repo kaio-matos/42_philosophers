@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 21:08:46 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/10 20:22:52 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/26 19:46:44 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
  * WARNING
 */
 # include<stdarg.h>
-#ifndef VERBOSE
-# define VERBOSE 0
-#endif
+# ifndef VERBOSE
+#  define VERBOSE 0
+# endif
 
 /* Black, Red, Green, Yellow, Blue, Purple, Cyan, White */
 # define SHELL_BK "\033[0;30m"

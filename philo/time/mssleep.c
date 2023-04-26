@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 21:05:13 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/24 20:05:11 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/26 19:43:08 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ void	mssleep_checking_death(t_philosopher_routine *args, size_t ms_time)
 	size_t	start;
 
 	start = current_time_ms();
-	while (ms_time > current_time_ms() - start && args->simulation->is_simulation_running)
+	while (
+		ms_time > current_time_ms()
+		- start && args->simulation->is_simulation_running
+	)
 		usleep(100);
 }
