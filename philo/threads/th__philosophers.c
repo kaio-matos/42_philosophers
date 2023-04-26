@@ -6,16 +6,16 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 21:38:57 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/24 20:17:37 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/26 20:34:17 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philosophers.h>
 
 /**
- * When a philosopher has finished eating, they put their forks back on the table and
- * start sleeping. Once awake, they start thinking again. The simulation stops when
- * a philosopher dies of starvation.
+ * When a philosopher has finished eating, they put their forks back on the
+ * table and start sleeping. Once awake, they start thinking again.
+ * The simulation stops when a philosopher dies of starvation.
 */
 void	*th_philosopher_routine(void	*args_void)
 {
@@ -26,7 +26,10 @@ void	*th_philosopher_routine(void	*args_void)
 
 	args = args_void;
 	i = args->philosopher->times_to_eat;
-	own_fork_node = find_fork_node_by_philosopher_id(args->forks, args->philosopher->id);
+	own_fork_node = find_fork_node_by_philosopher_id(
+			args->forks,
+			args->philosopher->id
+			);
 	args->philosopher->last_meal_ms = current_time_ms();
 	if (args->philosopher->id % 2 == 0)
 		usleep(1000);
@@ -72,7 +75,13 @@ void	th__create_philosophers_threads(
 		philosopher_routine_args->philosopher = get_philosopher(philosophers);
 		philosopher_routine_args->forks = forks;
 		philosopher_routine_args->simulation = simulation;
-		if (pthread_create(&get_philosopher(philosophers)->thread, NULL, philosopher_routine, philosopher_routine_args)) {
+		if (pthread_create(
+				&get_philosopher(philosophers)->thread,
+				NULL,
+				philosopher_routine,
+				philosopher_routine_args
+			))
+		{
 			printf("Error creating thread\n"); // TODO
 		}
 		philosophers = philosophers->next;

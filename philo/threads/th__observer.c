@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 21:38:57 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/25 19:48:32 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/26 20:39:25 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ void	*th_observer_routine(void	*args_void)
 	{
 		if (are_philosophers_satisfied(philosophers_temp))
 			break ;
-		if (is_philosopher_dead(get_philosopher(args->philosophers), args->simulation))
+		if (is_philosopher_dead(
+				get_philosopher(args->philosophers),
+				args->simulation
+			))
 			break ;
 		if (args->philosophers->next)
 			args->philosophers = args->philosophers->next;
@@ -43,14 +46,22 @@ void	*th_observer_routine(void	*args_void)
 	return (NULL);
 }
 
-void	th__create_observer(t_list *philosophers, t_simulation *simulation, pthread_t *thread)
+void	th__create_observer(
+			t_list *philosophers,
+			t_simulation *simulation,
+			pthread_t *thread
+			)
 {
 	t_observer_routine	*observer_routine_args;
 
 	observer_routine_args = ft_salloc(sizeof(t_observer_routine));
 	observer_routine_args->philosophers = philosophers;
 	observer_routine_args->simulation = simulation;
-	if (pthread_create(thread, NULL, th_observer_routine, observer_routine_args))
+	if (pthread_create(
+			thread,
+			NULL,
+			th_observer_routine,
+			observer_routine_args))
 	{
 		free(observer_routine_args);
 		printf("Error creating thread\n"); // TODO
