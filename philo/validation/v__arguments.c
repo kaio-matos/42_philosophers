@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 20:39:44 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/17 20:44:06 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/26 21:20:48 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	v__arguments(int argc, char **argv)
 	if (!is_valid(argv[4], "time_to_sleep"))
 		return (1);
 	if (argv[5] && !ft_isstrdigit(argv[5]))
-		return (printf("Error: invalid `number_of_times_each_philosopher_must_eat` argument\n"));
+		return (printf("Error: invalid\
+			`number_of_times_each_philosopher_must_eat` argument\n"));
 	return (0);
 }

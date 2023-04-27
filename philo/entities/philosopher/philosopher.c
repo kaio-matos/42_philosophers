@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:18:08 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/26 20:54:53 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/26 21:29:59 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ int	is_philosopher_dead(t_philosopher *philosopher, t_simulation *simulation)
 		return (FALSE);
 	if (philosopher->times_eaten == philosopher->times_to_eat)
 		return (FALSE);
-	if(get_time_offset_ms(philosopher->last_meal_ms) > philosopher->time_to_die)
+	if (
+		get_time_offset_ms(philosopher->last_meal_ms) > philosopher->time_to_die
+	)
 	{
 		simulation->is_simulation_running = FALSE;
 		usleep(1000);
@@ -45,5 +47,5 @@ int	is_philosopher_dead(t_philosopher *philosopher, t_simulation *simulation)
 
 t_philosopher	*get_philosopher(t_list *node)
 {
-	return ((t_philosopher	*)node->content);
+	return ((t_philosopher *)node->content);
 }

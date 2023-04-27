@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:32:36 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/26 21:16:45 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/26 21:29:28 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ t_list	*create_philosophers(t_arguments args)
 	while (i < args.number_of_philosophers)
 	{
 		ft_lstadd_back(&philosophers, ft_lstnew(create_philosopher(
-			i + 1,
-			args
-		)));
+					i + 1,
+					args
+					)));
 		i++;
 	}
 	return (philosophers);
@@ -40,7 +40,9 @@ int	are_philosophers_satisfied(t_list *philosophers)
 {
 	while (philosophers)
 	{
-		if (get_philosopher(philosophers)->times_eaten != get_philosopher(philosophers)->times_to_eat)
+		if (get_philosopher(philosophers)->times_eaten
+			!= get_philosopher(philosophers)->times_to_eat
+		)
 			return (FALSE);
 		philosophers = philosophers->next;
 	}
