@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 20:38:23 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/26 19:37:53 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/26 20:54:59 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,7 @@ void	philosophers(t_arguments args)
 
 	observer = ft_salloc(sizeof(pthread_t));
 	simulation = create_simulation();
-	philosophers = create_philosophers(
-			args.number_of_philosophers,
-			args.time_to_die,
-			args.time_to_eat,
-			args.time_to_sleep,
-			args.number_of_times_each_philosopher_must_eat
-			);
+	philosophers = create_philosophers(args);
 	forks = create_forks(args.number_of_philosophers);
 	attach_forks_to_philosophers(forks, philosophers);
 	print_args(args);

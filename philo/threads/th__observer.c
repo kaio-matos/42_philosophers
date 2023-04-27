@@ -6,19 +6,19 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 21:38:57 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/26 20:39:25 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/26 21:08:34 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philosophers.h>
 
+static void	th_observer_cycle(t_observer_routine *args);
+
 void	*th_observer_routine(void	*args_void)
 {
 	t_observer_routine	*args;
-	t_list				*philosophers_temp;
 
 	args = args_void;
-	philosophers_temp = args->philosophers;
 	if (!args->philosophers->next)
 	{
 		args->simulation->is_simulation_running = FALSE;
@@ -27,21 +27,7 @@ void	*th_observer_routine(void	*args_void)
 		free(args_void);
 		return (NULL);
 	}
-	while (TRUE)
-	{
-		if (are_philosophers_satisfied(philosophers_temp))
-			break ;
-		if (is_philosopher_dead(
-				get_philosopher(args->philosophers),
-				args->simulation
-			))
-			break ;
-		if (args->philosophers->next)
-			args->philosophers = args->philosophers->next;
-		else
-			args->philosophers = philosophers_temp;
-		usleep(3000);
-	}
+	th_observer_cycle(args);
 	free(args_void);
 	return (NULL);
 }
@@ -65,5 +51,27 @@ void	th__create_observer(
 	{
 		free(observer_routine_args);
 		printf("Error creating thread\n"); // TODO
+	}
+}
+
+static void	th_observer_cycle(t_observer_routine *args)
+{
+	t_list	*philosophers_temp;
+
+	philosophers_temp = args->philosophers;
+	while (TRUE)
+	{
+		if (are_philosophers_satisfied(philosophers_temp))
+			break ;
+		if (is_philosopher_dead(
+				get_philosopher(args->philosophers),
+				args->simulation
+			))
+			break ;
+		if (args->philosophers->next)
+			args->philosophers = args->philosophers->next;
+		else
+			args->philosophers = philosophers_temp;
+		usleep(3000);
 	}
 }

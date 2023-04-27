@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 01:06:58 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/26 20:20:02 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/26 20:48:16 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,21 +129,9 @@ void			*ft_salloc(size_t size);
 /**
  * PHILOSOPHER
 */
-t_philosopher	*create_philosopher(
-					int id,
-					int time_to_die,
-					int time_to_eat,
-					int time_to_sleep,
-					int times_to_eat
-					);
+t_philosopher	*create_philosopher(int id, t_arguments args);
 t_philosopher	*get_philosopher(t_list *node);
-t_list			*create_philosophers(
-					int number_of_philosophers,
-					int time_to_die,
-					int time_to_eat,
-					int time_to_sleep,
-					int times_to_eat
-					);
+t_list			*create_philosophers(t_arguments args);
 void			free_philosophers(t_list **philosophers);
 void			wait_philosophers(t_list *philosophers);
 int				is_philosopher_dead(
