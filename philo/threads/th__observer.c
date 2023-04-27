@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 21:38:57 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/26 21:17:08 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/26 21:52:08 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,6 @@ static void	th_observer_cycle(t_observer_routine *args)
 			args->philosophers = args->philosophers->next;
 		else
 			args->philosophers = philosophers_temp;
-		usleep(3000);
+		usleep(1000);
 	}
 }
