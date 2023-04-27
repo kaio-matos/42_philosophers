@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:32:36 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/26 20:55:07 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/26 21:16:45 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	wait_philosophers(t_list *philosophers)
 	while (philosophers)
 	{
 		if (pthread_join(get_philosopher(philosophers)->thread, NULL))
-			printf("Error waiting thread\n"); // TODO
+			printf("Error waiting thread\n");
 		philosophers = philosophers->next;
 	}
 }

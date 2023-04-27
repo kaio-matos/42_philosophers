@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 01:06:58 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/26 20:48:16 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/26 21:17:01 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,13 +224,5 @@ void			a__sleep(t_philosopher_routine *args);
 t_using_forks	*a__take_fork(t_philosopher_routine *args, t_dlist *fork_node);
 void			a__put_forks_on_table(t_using_forks *using_forks);
 void			a__think(t_philosopher_routine *args);
-
-/******************************************************************************\
-* REMOVE LATER																   *
-* TODO																		   *
-* WARNING																	   *
-\******************************************************************************/
-
-int				debug(const char *str, ...);
 
 #endif

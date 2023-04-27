@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 02:51:25 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/04 21:35:56 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/26 21:17:44 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*ft_salloc(size_t size)
 	mem = malloc(size);
 	if (!mem && size > 0)
 	{
-		printf("MEMORY ALLOCATION ERROR"); // TODO
+		printf("Memory allocation error\n");
 		exit(EXIT_FAILURE);
 	}
 	return (mem);

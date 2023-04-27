@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 21:38:57 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/26 21:04:19 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/04/26 21:17:15 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	th__create_philosophers_threads(
 				philosopher_routine_args
 			))
 		{
-			printf("Error creating thread\n"); // TODO
+			printf("Error creating thread\n");
 		}
 		philosophers = philosophers->next;
 	}
