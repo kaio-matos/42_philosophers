@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 21:38:57 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/26 21:17:15 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/05/05 21:15:24 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	*th_philosopher_routine(void	*args_void)
 			args->forks,
 			args->philosopher->id
 			);
-	args->philosopher->last_meal_ms = current_time_ms();
+	update_philosopher_last_meal(args->philosopher);
 	if (args->philosopher->id % 2 == 0)
 		usleep(1000);
 	th__philosopher_cycle(args, own_fork_node);
@@ -62,6 +62,7 @@ void	th__create_philosophers_threads(
 				philosopher_routine_args
 			))
 		{
+			free(philosopher_routine_args);
 			printf("Error creating thread\n");
 		}
 		philosophers = philosophers->next;
@@ -79,21 +80,21 @@ static void	th__philosopher_cycle(
 	i = args->philosopher->times_to_eat;
 	while (i || args->philosopher->times_to_eat == -1)
 	{
-		if (!args->simulation->is_simulation_running)
+		if (!is_simulation_running(args->simulation))
 			break ;
 		using_forks = a__take_fork(args, own_fork_node);
-		if (!args->simulation->is_simulation_running || !using_forks)
+		if (!is_simulation_running(args->simulation) || !using_forks)
 		{
 			a__put_forks_on_table(using_forks);
 			break ;
 		}
-		args->philosopher->last_meal_ms = current_time_ms();
+		update_philosopher_last_meal(args->philosopher);
 		a__eat(args);
 		a__put_forks_on_table(using_forks);
-		if (!args->simulation->is_simulation_running)
+		if (!is_simulation_running(args->simulation))
 			break ;
 		a__sleep(args);
-		if (!args->simulation->is_simulation_running)
+		if (!is_simulation_running(args->simulation))
 			break ;
 		a__think(args);
 		i--;

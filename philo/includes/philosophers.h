@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 01:06:58 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/26 21:27:30 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/05/05 21:12:59 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,15 @@ typedef struct s_fork
 
 typedef struct s_philosopher
 {
-	int			id;
-	pthread_t	thread;
-	int			time_to_die;
-	int			time_to_eat;
-	int			time_to_sleep;
-	int			times_to_eat;
-	int			times_eaten;
-	long		last_meal_ms;
+	int				id;
+	pthread_t		thread;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				times_to_eat;
+	int				times_eaten;
+	pthread_mutex_t	*mutex;
+	long			last_meal_ms;
 }	t_philosopher;
 
 typedef struct s_using_forks
@@ -139,6 +140,7 @@ int				is_philosopher_dead(
 					t_simulation *simulation
 					);
 int				are_philosophers_satisfied(t_list *philosophers);
+void			update_philosopher_last_meal(t_philosopher *philosopher);
 
 /**
  * FORK
@@ -157,6 +159,7 @@ t_dlist			*find_fork_node_by_philosopher_id(
 */
 t_simulation	*create_simulation(void);
 void			free_simulation(t_simulation *simulation);
+int				is_simulation_running(t_simulation *simulation);
 
 /******************************************************************************\
 * THREADS																	   *

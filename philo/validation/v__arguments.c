@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 20:39:44 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/26 21:20:48 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/05/02 19:50:32 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ static int	is_valid(char *arg, char *name)
 		return (0);
 	}
 	if (!ft_isstrdigit(arg))
+	{
+		printf("Error: invalid `%s` argument\n", name);
+		return (0);
+	}
+	if (ft_atoi(arg) <= 0)
 	{
 		printf("Error: invalid `%s` argument\n", name);
 		return (0);

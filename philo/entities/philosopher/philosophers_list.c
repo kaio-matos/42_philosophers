@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:32:36 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/26 21:29:28 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/05/03 21:08:59 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,15 @@ t_list	*create_philosophers(t_arguments args)
 
 void	free_philosophers(t_list **philosophers)
 {
+	t_list	*philos;
+
+	philos = *philosophers;
+	while (philos)
+	{
+		pthread_mutex_destroy(get_philosopher(philos)->mutex);
+		free(get_philosopher(philos)->mutex);
+		philos = philos->next;
+	}
 	ft_lstclear(philosophers, &free);
 	free(*philosophers);
 }
@@ -40,10 +49,14 @@ int	are_philosophers_satisfied(t_list *philosophers)
 {
 	while (philosophers)
 	{
+		pthread_mutex_lock(get_philosopher(philosophers)->mutex);
 		if (get_philosopher(philosophers)->times_eaten
 			!= get_philosopher(philosophers)->times_to_eat
-		)
+		){
+			pthread_mutex_unlock(get_philosopher(philosophers)->mutex);
 			return (FALSE);
+		}
+		pthread_mutex_unlock(get_philosopher(philosophers)->mutex);
 		philosophers = philosophers->next;
 	}
 	return (TRUE);
