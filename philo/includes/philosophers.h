@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 01:06:58 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/05/05 21:12:59 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/05/08 19:57:58 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,6 @@ typedef struct s_philosopher
 	pthread_mutex_t	*mutex;
 	long			last_meal_ms;
 }	t_philosopher;
-
-typedef struct s_using_forks
-{
-	t_fork		*mine;
-	t_fork		*borrowed;
-}	t_using_forks;
 
 typedef struct s_philosopher_routine
 {
@@ -222,8 +216,8 @@ void			log_death(
 
 void			a__eat(t_philosopher_routine *args);
 void			a__sleep(t_philosopher_routine *args);
-t_using_forks	*a__take_fork(t_philosopher_routine *args, t_dlist *fork_node);
-void			a__put_forks_on_table(t_using_forks *using_forks);
+t_fork			*a__take_fork(t_philosopher_routine *args, t_dlist *fork_node);
+void			a__put_forks_on_table(t_fork *mine, t_fork *borrowed);
 void			a__think(t_philosopher_routine *args);
 
 #endif

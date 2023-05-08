@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 21:38:57 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/05/05 21:15:24 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/05/08 20:11:40 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,23 +74,23 @@ static void	th__philosopher_cycle(
 	t_dlist *own_fork_node
 )
 {
-	t_using_forks	*using_forks;
-	int				i;
+	t_fork	*borrowed;
+	int		i;
 
 	i = args->philosopher->times_to_eat;
 	while (i || args->philosopher->times_to_eat == -1)
 	{
 		if (!is_simulation_running(args->simulation))
 			break ;
-		using_forks = a__take_fork(args, own_fork_node);
-		if (!is_simulation_running(args->simulation) || !using_forks)
+		borrowed = a__take_fork(args, own_fork_node);
+		if (!is_simulation_running(args->simulation) || !borrowed)
 		{
-			a__put_forks_on_table(using_forks);
+			a__put_forks_on_table(get_fork(own_fork_node), borrowed);
 			break ;
 		}
 		update_philosopher_last_meal(args->philosopher);
 		a__eat(args);
-		a__put_forks_on_table(using_forks);
+		a__put_forks_on_table(get_fork(own_fork_node), borrowed);
 		if (!is_simulation_running(args->simulation))
 			break ;
 		a__sleep(args);

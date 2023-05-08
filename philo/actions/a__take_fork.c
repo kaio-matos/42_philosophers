@@ -6,43 +6,37 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 21:43:03 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/05/05 20:44:48 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/05/08 19:57:29 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philosophers.h>
 
-t_using_forks	*a__take_fork(t_philosopher_routine *args, t_dlist *fork_node)
+t_fork	*a__take_fork(t_philosopher_routine *args, t_dlist *fork_node)
 {
 	t_fork			*borrowed_fork;
 	t_fork			*fork;
-	t_using_forks	*using_forks;
 
 	fork = get_fork(fork_node);
-	using_forks = ft_salloc(sizeof(t_using_forks));
 	if (fork_node->next)
 		borrowed_fork = get_fork(fork_node->next);
 	else
 		borrowed_fork = get_fork(args->forks);
 	pthread_mutex_lock(fork->mutex);
 	pthread_mutex_lock(borrowed_fork->mutex);
-	using_forks->mine = fork;
-	using_forks->borrowed = borrowed_fork;
 	if (!is_simulation_running(args->simulation))
 	{
-		a__put_forks_on_table(using_forks);
+		a__put_forks_on_table(fork, borrowed_fork);
 		return (NULL);
 	}
 	log_taken_fork(args->philosopher, args->simulation);
-	return (using_forks);
+	return (borrowed_fork);
 }
 
-void	a__put_forks_on_table(t_using_forks *using_forks)
+void	a__put_forks_on_table(t_fork *mine, t_fork *borrowed)
 {
-	if (using_forks)
-	{
-		pthread_mutex_unlock(using_forks->mine->mutex);
-		pthread_mutex_unlock(using_forks->borrowed->mutex);
-		free(using_forks);
-	}
+	if (mine)
+		pthread_mutex_unlock(mine->mutex);
+	if (borrowed)
+		pthread_mutex_unlock(borrowed->mutex);
 }
