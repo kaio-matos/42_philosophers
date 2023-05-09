@@ -54,7 +54,7 @@ rebuild:
 inspect:
 	@echo "Compiling..."
 	@$(CC) $(CCF_DEBUG) $(CCF_INCL_MANDATORY) $(SRCS_MANDATORY) -o $(NAME)
-	valgrind --tool=helgrind ./$(NAME) 2 410 200 200 1
+	valgrind --tool=helgrind ./$(NAME) 4 410 200 200
 
 ################################################################################
 # BONUS
