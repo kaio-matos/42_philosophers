@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 21:43:03 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/05/08 21:20:11 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/05/08 21:56:08 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ t_fork	*a__take_fork(t_philosopher_routine *args, t_dlist *fork_node)
 
 void	a__put_forks_on_table(t_fork *mine, t_fork *borrowed)
 {
-	pthread_mutex_unlock(borrowed->mutex);
-	pthread_mutex_unlock(mine->mutex);
+	if (borrowed)
+		pthread_mutex_unlock(borrowed->mutex);
+	if (mine)
+		pthread_mutex_unlock(mine->mutex);
 }
