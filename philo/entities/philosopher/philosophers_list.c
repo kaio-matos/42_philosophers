@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:32:36 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/05/03 21:08:59 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/05/08 21:25:09 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int	are_philosophers_satisfied(t_list *philosophers)
 	{
 		pthread_mutex_lock(get_philosopher(philosophers)->mutex);
 		if (get_philosopher(philosophers)->times_eaten
-			!= get_philosopher(philosophers)->times_to_eat
-		){
+			!= get_philosopher(philosophers)->times_to_eat)
+		{
 			pthread_mutex_unlock(get_philosopher(philosophers)->mutex);
 			return (FALSE);
 		}
