@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 21:38:57 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/04/26 21:52:08 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:41:16 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void	*th_observer_routine(void	*args_void)
 	args = args_void;
 	if (!args->philosophers->next)
 	{
+		pthread_mutex_lock(args->simulation->mutex);
 		args->simulation->is_simulation_running = FALSE;
+		pthread_mutex_unlock(args->simulation->mutex);
 		usleep(1000);
 		log_death(get_philosopher(args->philosophers), args->simulation);
 		free(args_void);

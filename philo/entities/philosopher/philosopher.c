@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:18:08 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/05/05 21:12:01 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:41:12 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ int	is_philosopher_dead(t_philosopher *philosopher, t_simulation *simulation)
 		get_time_offset_ms(philosopher->last_meal_ms) > philosopher->time_to_die
 	)
 	{
+		pthread_mutex_lock(simulation->mutex);
 		simulation->is_simulation_running = FALSE;
+		pthread_mutex_unlock(simulation->mutex);
 		usleep(1000);
 		log_death(philosopher, simulation);
 		result = TRUE;

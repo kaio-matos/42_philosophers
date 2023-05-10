@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 21:38:57 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/05/08 20:11:40 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:53:10 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,9 @@ static void	th__philosopher_cycle(
 		if (!is_simulation_running(args->simulation))
 			break ;
 		borrowed = a__take_fork(args, own_fork_node);
-		if (!is_simulation_running(args->simulation) || !borrowed)
+		if (!borrowed)
+			break ;
+		if (!is_simulation_running(args->simulation))
 		{
 			a__put_forks_on_table(get_fork(own_fork_node), borrowed);
 			break ;
