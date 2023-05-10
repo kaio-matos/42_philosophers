@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 21:38:57 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/05/09 21:53:10 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:59:47 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ static void	th__philosopher_cycle(
 	int		i;
 
 	i = args->philosopher->times_to_eat;
+	borrowed = NULL;
 	while (i || args->philosopher->times_to_eat == -1)
 	{
 		if (!is_simulation_running(args->simulation))

@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 20:23:15 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/05/09 21:44:30 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:01:20 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,6 @@ void	log_thinking(t_philosopher *philosopher, t_simulation *simulation)
 void	log_death(t_philosopher *philosopher, t_simulation *simulation)
 {
 	pthread_mutex_lock(simulation->mutex);
-	if (!simulation->is_simulation_running)
-	{
-		pthread_mutex_unlock(simulation->mutex);
-		return ;
-	}
 	printf(
 		"%s%ld\t %i died%s\n",
 		SHELL_R,
