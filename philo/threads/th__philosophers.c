@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 21:38:57 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/05/09 21:59:47 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:28:49 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static void	th__philosopher_cycle(
 				t_philosopher_routine *args,
-				t_dlist *own_fork_node
+				t_dlist *own_fork_node,
+				int times_to_run
 				);
 
 /**
@@ -35,7 +36,7 @@ void	*th_philosopher_routine(void	*args_void)
 	update_philosopher_last_meal(args->philosopher);
 	if (args->philosopher->id % 2 == 0)
 		usleep(1000);
-	th__philosopher_cycle(args, own_fork_node);
+	th__philosopher_cycle(args, own_fork_node, args->philosopher->times_to_eat);
 	free(args);
 	return (NULL);
 }
@@ -71,18 +72,15 @@ void	th__create_philosophers_threads(
 
 static void	th__philosopher_cycle(
 	t_philosopher_routine *args,
-	t_dlist *own_fork_node
+	t_dlist *own_fork_node,
+	int times_to_run
 )
 {
 	t_fork	*borrowed;
-	int		i;
 
-	i = args->philosopher->times_to_eat;
-	borrowed = NULL;
-	while (i || args->philosopher->times_to_eat == -1)
+	while ((is_simulation_running(args->simulation) && times_to_run)
+		|| args->philosopher->times_to_eat == -1)
 	{
-		if (!is_simulation_running(args->simulation))
-			break ;
 		borrowed = a__take_fork(args, own_fork_node);
 		if (!borrowed)
 			break ;
@@ -100,6 +98,6 @@ static void	th__philosopher_cycle(
 		if (!is_simulation_running(args->simulation))
 			break ;
 		a__think(args);
-		i--;
+		times_to_run--;
 	}
 }

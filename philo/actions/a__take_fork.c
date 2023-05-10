@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 21:43:03 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/05/08 21:56:08 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:12:49 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_fork	*a__take_fork(t_philosopher_routine *args, t_dlist *fork_node)
 	t_fork			*fork;
 
 	fork = get_fork(fork_node);
+	borrowed_fork = NULL;
 	if (fork_node->next)
 	{
 		borrowed_fork = get_fork(fork_node->next);
