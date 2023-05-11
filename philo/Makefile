@@ -57,27 +57,6 @@ inspect:
 	valgrind --tool=helgrind ./$(NAME) 4 410 200 200
 
 ################################################################################
-# BONUS
-################################################################################
-
-# NAME_B				= $(NAME)__bonus
-# CCF_INCL_BONUS		= -I ./$(SRC_DIR)/$(BONUS_DIR)/includes -I $(LIBFT_DIR)
-# C_FILES_BONUS		= main_bonus.c
-
-# FILES_BONUS			= $(addprefix $(BONUS_DIR)/,$(C_FILES_BONUS))
-# SRCS_BONUS			= $(addprefix src/,$(FILES_BONUS))
-# OBJS_BONUS			= $(addprefix $(OBJS_DIR)/,$(FILES_BONUS:.c=.o))
-
-# bonus: $(NAME_B)
-
-# $(NAME_B): $(OBJS_BONUS) $(LIBFT)
-# 	$(CC) $(OBJS_BONUS) $(LIBS) -o $(NAME_B)
-
-# $(OBJS_DIR)/$(BONUS_DIR)/%.o : $(SRC_DIR)/$(BONUS_DIR)/%.c
-# 	mkdir -p $(dir $@)
-# 	$(CC) $(CCF_STRICT) $(CCF_INCL_BONUS) -c $< -o $@
-
-################################################################################
 # CLEAN UP
 ################################################################################
 
