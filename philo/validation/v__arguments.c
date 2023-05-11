@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 20:39:44 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/05/11 02:07:13 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/05/11 02:31:55 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,11 @@ static int	is_valid(char *arg, char *name)
 
 int	v__arguments(int argc, char **argv)
 {
-	(void)argc;
+	if (argc > 6)
+	{
+		printf("Error: too many arguments\n");
+		return (1);
+	}
 	if (is_too_big(argv[1], 200, "number_of_philosophers"))
 		return (1);
 	if (!is_valid(argv[1], "number_of_philosophers"))
