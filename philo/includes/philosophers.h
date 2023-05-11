@@ -6,7 +6,7 @@
 /*   By: kmatos-s <kmatos-s@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 01:06:58 by kmatos-s          #+#    #+#             */
-/*   Updated: 2023/05/08 19:57:58 by kmatos-s         ###   ########.fr       */
+/*   Updated: 2023/05/11 02:00:33 by kmatos-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define MILISECOND 1000
 # define TRUE 1
 # define FALSE 0
+# define MAX_INT 2147483647
 
 /**
  * Allowed functions
@@ -116,6 +117,7 @@ int				ft_atoi(const char *nptr);
 int				ft_isdigit(int c);
 int				ft_isstrdigit(char *s);
 void			*ft_salloc(size_t size);
+long long int	ft_atol(const char *nptr);
 
 /******************************************************************************\
 * ENTITIES																	   *
