@@ -11,7 +11,7 @@ The action `eat` requires the philosopher to take your own fork (each philosophe
 
 The action `sleep` just makes the philosopher sleep (do nothing).
 
-The action `think` is the majority of time just the time that the philosopher waits for take your own fork before eaching (because he has to wait the other philosophers finish eating).
+The action `think` is the majority of time just the time that the philosopher waits for take your own fork before eating (because he has to wait the other philosophers finish eating).
 
 ## Execution
 
