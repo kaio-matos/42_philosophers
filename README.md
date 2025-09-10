@@ -1,7 +1,3 @@
-<h1 align="center">
-    <img alt="Push Swap" src="https://game.42sp.org.br/static/assets/achievements/philosopherse.png" width="200px" />
-</h1>
-
 # Philosophers
 
 This project aims to introduce 42 students into threads and your pitfalls with data races and deadlocks.
